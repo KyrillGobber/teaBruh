@@ -1,4 +1,5 @@
 import { ModeToggle } from "../mode-toggle";
+import { Separator } from "@/components/ui/separator"
 
 export const Nav = () => {
     return (
@@ -11,6 +12,7 @@ export const Nav = () => {
                     <h1>Let's brew some tea, bruh.</h1>
                     <ModeToggle />
                 </div>
+                <Separator className="bg-secondary" />
             </header>
         </div>
     );
