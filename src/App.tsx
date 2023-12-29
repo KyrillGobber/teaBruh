@@ -3,6 +3,7 @@ import { Toaster } from "sonner";
 import { cn } from "./lib/utils";
 import { Nav } from "./components/organisms/nav";
 import { MainContent } from "./components/organisms/MainContent";
+import { Footer } from "./components/organisms/footer";
 
 function App() {
     return (
@@ -10,8 +11,9 @@ function App() {
             <main className="relative flex flex-col min-h-screen">
                 <Nav />
                 <MainContent />
+                <Footer />
             </main>
-            <Toaster duration={2000} />
+            <Toaster duration={3000} />
         </div>
     );
 }
