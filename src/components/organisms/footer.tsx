@@ -13,8 +13,8 @@ export const Footer = () => {
 const FooterText = () => {
     return (
         <p>
-            Next.JS App with Supabase backend made with
-            <span className="text-red-500"> ❤</span> by Kyrill Gobber
+            Tea timer app made with React and Shadcn,
+            by Kyrill Gobber
         </p>
     );
 };

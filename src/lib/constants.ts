@@ -10,6 +10,24 @@ export type Infusion = {
 
 export const teas: Tea[] = [
     {
+        name: 'Test Tea',
+        infusions: [
+            {
+                id: 1,
+                duration: 3
+            },
+            {
+                id: 2,
+                duration: 5
+            },
+            {
+                id: 3,
+                duration: 10
+            }
+
+        ]
+    },
+    {
         name: 'Green Tea',
         infusions: [
             {
