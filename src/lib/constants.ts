@@ -15,7 +15,7 @@ export const teas: Tea[] = [
     {
         name: 'Test Tea',
         desc: 'This is a test tea',
-        weitht: 5,
+        weight: 5,
         temp: 95,
         infusions: [
             {

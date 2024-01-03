@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { Card, CardHeader } from "../ui/card";
 import { ArrowBigLeft, ArrowBigRight, Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Tea, teas } from "@/lib/constants";
+import { teas } from "@/lib/constants";
 import { Progress } from "../ui/progress";
 import { useTeaStore } from "@/lib/stores/TeaStore";
 
