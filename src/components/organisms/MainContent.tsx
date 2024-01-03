@@ -76,6 +76,13 @@ export const MainContent = () => {
         }
     }, [currentTime]);
 
+    useEffect(() => {
+        const resetInfusion = 1;
+        const newTeaTime = tea.infusions[resetInfusion - 1].duration;
+        setCurrentTime(newTeaTime);
+        setCurrentInfusion(resetInfusion);
+    }, [tea]);
+
     const getAlertContent = () => {
         return {
             description: `Done since ${new Date().toLocaleTimeString()}`,
