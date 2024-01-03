@@ -5,6 +5,7 @@ import { ArrowBigLeft, ArrowBigRight, Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Tea, teas } from "@/lib/constants";
 import { Progress } from "../ui/progress";
+import { useTeaStore } from "@/lib/stores/TeaStore";
 
 const getIcon = (timerState: TimerState) => {
     switch (timerState) {
@@ -20,7 +21,7 @@ type TimerState = "running" | "stopped";
 const SECOND = 1000;
 
 export const MainContent = () => {
-    const [currentTea, setCurrentTea] = useState<Tea>(teas[0]);
+    const tea = useTeaStore((state) => state.tea);
     const [timerState, setTimerState] = useState<TimerState>("stopped");
     const [progress, setProgress] = useState(0);
     const [currentInfusion, setCurrentInfusion] = useState(1);
@@ -59,7 +60,7 @@ export const MainContent = () => {
     useEffect(() => {
         //If infusion changes, should reset everything and set the new values
         setProgress(0);
-        const newTime = currentTea.infusions[currentInfusion - 1].duration;
+        const newTime = tea.infusions[currentInfusion - 1].duration;
         setCurrentTime(newTime);
         const newFraction = 100 / newTime;
         fractionRef.current = newFraction;
@@ -91,7 +92,7 @@ export const MainContent = () => {
     return (
         <div className="flex flex-col justify-center items-center gap-8 mt-12">
             <div className="flex flex-col gap-2">
-                <h1>{currentTea.name}</h1>
+                <h1>{tea.name}</h1>
                 <h2>{`Infusion: ${currentInfusion}`}</h2>
             </div>
             <Card>
@@ -127,7 +128,7 @@ export const MainContent = () => {
                         className="p-8"
                         variant={"ghost"}
                         disabled={
-                            currentInfusion === currentTea.infusions.length
+                            currentInfusion === tea.infusions.length
                         }
                         onClick={() => {
                             setTimerState("stopped");
