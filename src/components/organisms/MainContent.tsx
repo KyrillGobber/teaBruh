@@ -28,22 +28,12 @@ export const MainContent = () => {
         teas[0].infusions[0].duration
     );
     const timerIdRef = useRef<NodeJS.Timeout | null>(null);
-
-    const [fraction, setFraction] = useState(100 / currentTime);
+    const fractionRef = useRef(100 / currentTime);
 
     const handleBrewButtonEvent = () => {
         if (timerState === "stopped") {
             if (currentTime === 0) {
-                setProgress(0);
-                setCurrentInfusion(currentInfusion => {
-                    const newInfusion = currentInfusion + 1;
-                    setCurrentTime(() => {
-                        const newTime = currentTea.infusions[newInfusion - 1].duration;
-                        setFraction(100 / newTime);
-                        return newTime;
-                    });
-                    return newInfusion;
-                });
+                setCurrentInfusion(currentInfusion + 1);
             }
             setTimerState("running");
         }
@@ -55,18 +45,31 @@ export const MainContent = () => {
 
     useEffect(() => {
         if (timerState === "running") {
-            toast("BREW TIME", getAlertContent());
             const timerId = setInterval(() => {
-                setProgress(progress => progress + fraction);
+                setProgress(progress => progress + fractionRef.current);
                 setCurrentTime(currentTime => currentTime - 1);
             }, SECOND);
             timerIdRef.current = timerId;
         }
+        if (timerState === "stopped") {
+            timerIdRef.current && clearInterval(timerIdRef.current);
+        }
     }, [timerState]);
 
     useEffect(() => {
+        //If infusion changes, should reset everything and set the new values
+        setProgress(0);
+        const newTime = currentTea.infusions[currentInfusion - 1].duration;
+        setCurrentTime(newTime);
+        const newFraction = 100 / newTime;
+        fractionRef.current = newFraction;
+    }, [currentInfusion]);
+
+    // Play sound when timer is done
+    useEffect(() => {
         if (currentTime === 0) {
             console.log("play the fucking sound");
+            toast(`INFUSION ${currentInfusion} DONE, ENJOYY`, getAlertContent());
             timerIdRef.current && clearInterval(timerIdRef.current);
             setTimerState("stopped");
         }
@@ -74,7 +77,7 @@ export const MainContent = () => {
 
     const getAlertContent = () => {
         return {
-            description: `BrewTime: ${currentTime}, fraction: ${fraction}`,
+            description: `Done since ${new Date().toLocaleTimeString()}`,
             action: {
                 label: "X",
                 onClick: () => {
@@ -86,7 +89,10 @@ export const MainContent = () => {
 
     return (
         <div className="flex flex-col justify-center items-center gap-8 mt-12">
-            <h1>{currentTea.name}</h1>
+            <div className="flex flex-col gap-2">
+                <h1>{currentTea.name}</h1>
+                <h2>{`Infusion: ${currentInfusion}`}</h2>
+            </div>
             <Card>
                 <CardHeader className="flex flex-col items-center w-32">
                     <h1>{currentTime}</h1>
@@ -107,6 +113,7 @@ export const MainContent = () => {
                         variant={"ghost"}
                         disabled={currentInfusion === 1}
                         onClick={() => {
+                            setTimerState("stopped");
                             setCurrentInfusion(currentInfusion - 1);
                         }}
                     >
@@ -122,6 +129,7 @@ export const MainContent = () => {
                             currentInfusion === currentTea.infusions.length
                         }
                         onClick={() => {
+                            setTimerState("stopped");
                             setCurrentInfusion(currentInfusion + 1);
                         }}
                     >
