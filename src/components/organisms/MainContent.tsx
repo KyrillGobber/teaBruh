@@ -2,10 +2,9 @@ import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Card, CardHeader } from "../ui/card";
 import { ArrowBigLeft, ArrowBigRight, Pause, Play } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Tea, teas } from "@/lib/constants";
 import { Progress } from "../ui/progress";
-import { useInterval } from "@/lib/hooks/useTimeout";
 
 const getIcon = (timerState: TimerState) => {
     switch (timerState) {
@@ -18,8 +17,9 @@ const getIcon = (timerState: TimerState) => {
 
 type TimerState = "running" | "stopped";
 
+const SECOND = 1000;
+
 export const MainContent = () => {
-    const { set, clear } = useInterval();
     const [currentTea, setCurrentTea] = useState<Tea>(teas[0]);
     const [timerState, setTimerState] = useState<TimerState>("stopped");
     const [progress, setProgress] = useState(0);
@@ -27,29 +27,54 @@ export const MainContent = () => {
     const [currentTime, setCurrentTime] = useState(
         teas[0].infusions[0].duration
     );
+    const timerIdRef = useRef<NodeJS.Timeout | null>(null);
+
+    const [fraction, setFraction] = useState(100 / currentTime);
 
     const handleBrewButtonEvent = () => {
-        toast("BREW TIME", getAlertContent());
-        if (currentTime === 0) {
-            setCurrentInfusion(currentInfusion + 1);
-            setCurrentTime(currentTea.infusions[currentInfusion].duration);
-        }
         if (timerState === "stopped") {
+            if (currentTime === 0) {
+                setProgress(0);
+                setCurrentInfusion(currentInfusion => {
+                    const newInfusion = currentInfusion + 1;
+                    setCurrentTime(() => {
+                        const newTime = currentTea.infusions[newInfusion - 1].duration;
+                        setFraction(100 / newTime);
+                        return newTime;
+                    });
+                    return newInfusion;
+                });
+            }
             setTimerState("running");
-            const fraction = 100 / currentTime;
-            set(() => {
-                setCurrentTime(currentTime => currentTime - 1);
-                setProgress(progress => progress += fraction);
-            }, 1000);
         }
         else {
             setTimerState("stopped");
-            clear();
+            timerIdRef.current && clearInterval(timerIdRef.current);
         }
     };
+
+    useEffect(() => {
+        if (timerState === "running") {
+            toast("BREW TIME", getAlertContent());
+            const timerId = setInterval(() => {
+                setProgress(progress => progress + fraction);
+                setCurrentTime(currentTime => currentTime - 1);
+            }, SECOND);
+            timerIdRef.current = timerId;
+        }
+    }, [timerState]);
+
+    useEffect(() => {
+        if (currentTime === 0) {
+            console.log("play the fucking sound");
+            timerIdRef.current && clearInterval(timerIdRef.current);
+            setTimerState("stopped");
+        }
+    }, [currentTime]);
+
     const getAlertContent = () => {
         return {
-            description: `${new Date().toLocaleDateString()} @ ${new Date().toLocaleTimeString()}`,
+            description: `BrewTime: ${currentTime}, fraction: ${fraction}`,
             action: {
                 label: "X",
                 onClick: () => {
@@ -58,18 +83,6 @@ export const MainContent = () => {
             },
         };
     };
-
-    useEffect(() => {
-        setCurrentTime(teas[0].infusions[currentInfusion - 1].duration);
-    }, [currentInfusion]);
-
-    useEffect(() => {
-        if (currentTime === 0) {
-            console.log("play the fucking sound");
-            clear();
-            setTimerState("stopped");
-        }
-    }, [currentTime, clear]);
 
     return (
         <div className="flex flex-col justify-center items-center gap-8 mt-12">

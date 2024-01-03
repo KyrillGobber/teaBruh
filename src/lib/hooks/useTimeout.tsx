@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 
 export const useInterval = () => {
     const [isActive, setIsActive] = useState(false);
@@ -8,9 +8,11 @@ export const useInterval = () => {
     const set = useCallback((callback: () => void, delay: number) => {
         setIsActive(true);
         callbackRef.current = callback;
-        timeoutIdRef.current = setInterval(() => {
+        const id = setInterval(() => {
             callbackRef.current();
+            clear();
         }, delay);
+        timeoutIdRef.current = id;
     }, []);
 
     const clear = useCallback(() => {
@@ -21,6 +23,17 @@ export const useInterval = () => {
         }
     }, []);
 
-    return { set, clear, isActive };
-};
+    const reset = useCallback(
+        (callback: () => void, delay: number) => {
+            clear();
+            set(callback, delay);
+        },
+        [clear, set]
+    );
 
+    useEffect(() => {
+        return clear;
+    }, [clear]);
+
+    return { set, clear, reset, isActive };
+};
