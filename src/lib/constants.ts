@@ -13,27 +13,6 @@ export type Infusion = {
 
 export const teas: Tea[] = [
     {
-        name: 'Test Tea',
-        desc: 'This is a test tea',
-        weight: 5,
-        temp: 95,
-        infusions: [
-            {
-                id: 1,
-                duration: 3
-            },
-            {
-                id: 2,
-                duration: 5
-            },
-            {
-                id: 3,
-                duration: 10
-            }
-
-        ]
-    },
-    {
         name: 'Green Tea, japanese style',
         desc: 'Sencha, Gyokuro, etc. Max 70°C, first infusion longer to open the leaves, depending on the tea, there can also be a longer fourth or even fifth infusion.',
         weight: 5,
@@ -131,6 +110,27 @@ export const teas: Tea[] = [
                 id: 1,
                 duration: 90
             },
+        ]
+    },
+    {
+        name: 'Test Tea',
+        desc: 'This is a test tea',
+        weight: 5,
+        temp: 95,
+        infusions: [
+            {
+                id: 1,
+                duration: 3
+            },
+            {
+                id: 2,
+                duration: 5
+            },
+            {
+                id: 3,
+                duration: 10
+            }
+
         ]
     },
 ]
