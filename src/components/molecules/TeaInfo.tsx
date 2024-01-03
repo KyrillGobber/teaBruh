@@ -7,12 +7,14 @@ export const TeaInfo = () => {
     const tea = useTeaStore((state) => state.tea);
     return (
         <Accordion type="single" collapsible>
-            <AccordionItem value="item-1">
-                <AccordionTrigger>Tea info and description</AccordionTrigger>
-                <AccordionContent>
-                    {tea.desc}
-                </AccordionContent>
-            </AccordionItem>
+            {tea.desc && (
+                <AccordionItem value="item-1">
+                    <AccordionTrigger>Tea info and description</AccordionTrigger>
+                    <AccordionContent>
+                        {tea.desc}
+                    </AccordionContent>
+                </AccordionItem>
+            )}
             {(tea.weight || tea.temp) && (
                 <AccordionItem value="item-2">
                     <AccordionTrigger>Tea specs</AccordionTrigger>
