@@ -12,7 +12,7 @@ export const Footer = () => {
 
 const FooterText = () => {
     return (
-        <p>
+        <p className="text-sm md:text-base">
             Tea timer app made with React and Shadcn,
             by Kyrill Gobber
         </p>
@@ -22,7 +22,7 @@ const FooterText = () => {
 const FooterSrc = () => {
     return (
         <a
-            className="flex flex-row gap-2"
+            className="flex flex-row gap-2 text-sm md:text-base"
             target="_blank"
             href={'https://github.com/KyrillGobber/kybits'}
             rel="noopener noreferrer"

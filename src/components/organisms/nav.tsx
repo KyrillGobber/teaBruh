@@ -9,7 +9,7 @@ export const Nav = () => {
                     <div className="bg-secondary dark:bg-secondary p-2 rounded-lg">
                         Tea Bruh
                     </div>
-                    <h1>Let's brew some tea, bruh.</h1>
+                    <h1 className="text-lg md:text-3xl">Let's brew some tea, bruh.</h1>
                     <ModeToggle />
                 </div>
                 <Separator className="bg-secondary" />
