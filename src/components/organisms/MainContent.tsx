@@ -81,10 +81,14 @@ export const MainContent = () => {
     }, [currentTime]);
 
     useEffect(() => {
+        setTimerState('stopped');
         const resetInfusion = 1;
         const newTeaTime = tea.infusions[resetInfusion - 1].duration;
         setCurrentTime(newTeaTime);
         setCurrentInfusion(resetInfusion);
+        setProgress(0);
+        const newFraction = 100 / newTeaTime;
+        fractionRef.current = newFraction;
     }, [tea]);
 
     const getAlertContent = () => {
