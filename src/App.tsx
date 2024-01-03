@@ -13,7 +13,7 @@ function App() {
                 <MainContent />
                 <Footer />
             </main>
-            <Toaster duration={3000} />
+            <Toaster />
         </div>
     );
 }

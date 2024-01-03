@@ -69,7 +69,7 @@ export const MainContent = () => {
     useEffect(() => {
         if (currentTime === 0) {
             console.log("play the fucking sound");
-            toast(`INFUSION ${currentInfusion} DONE, ENJOYY`, getAlertContent());
+            toast.success(`INFUSION ${currentInfusion} DONE, ENJOYY`, getAlertContent());
             timerIdRef.current && clearInterval(timerIdRef.current);
             setTimerState("stopped");
         }
@@ -84,6 +84,7 @@ export const MainContent = () => {
                     console.log("clicked");
                 },
             },
+            duration: 600000,
         };
     };
 
@@ -95,7 +96,7 @@ export const MainContent = () => {
             </div>
             <Card>
                 <CardHeader className="flex flex-col items-center w-32">
-                    <h1>{currentTime}</h1>
+                    <h1 className="text-5xl">{currentTime}</h1>
                     <Progress value={progress} />
                 </CardHeader>
             </Card>
