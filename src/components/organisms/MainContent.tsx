@@ -12,9 +12,9 @@ import audio from "@/assets/yay.mp3";
 const getIcon = (timerState: TimerState) => {
     switch (timerState) {
         case "running":
-            return <Pause size={62} />;
+            return <Pause size={128} />;
         case "stopped":
-            return <Play size={62} />;
+            return <Play size={128} />;
     }
 };
 
@@ -113,7 +113,7 @@ export const MainContent = () => {
                 </Card>
                 <div className="flex flex-col">
                     <Button
-                        className="p-8"
+                        className="p-8 h-64 rounded-full border border-white"
                         variant={"ghost"}
                         onClick={handleBrewButtonEvent}
                     >
