@@ -57,6 +57,8 @@ export const teas: Tea[] = [
     {
         name: 'Pu-erh <3',
         desc: 'First infusion is a rinse / wash, not to be drunk. The first real infusion is the second one. The wash may be shorter or longer than 10 seconds, depending on the tea.',
+        weight: 5,
+        temp: 99,
         infusions: [
             {
                 id: 1,

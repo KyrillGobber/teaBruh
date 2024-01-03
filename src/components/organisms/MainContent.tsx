@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { teas } from "@/lib/constants";
 import { Progress } from "../ui/progress";
 import { useTeaStore } from "@/lib/stores/TeaStore";
+import { TeaInfo } from "../molecules/TeaInfo";
 
 const getIcon = (timerState: TimerState) => {
     switch (timerState) {
@@ -97,57 +98,62 @@ export const MainContent = () => {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center gap-8 mt-12">
-            <div className="flex flex-col gap-2">
-                <h1>{tea.name}</h1>
-                <h2>{`Infusion: ${currentInfusion}`}</h2>
-            </div>
-            <Card>
-                <CardHeader className="flex flex-col items-center w-32">
-                    <h1 className="text-5xl">{currentTime}</h1>
-                    <Progress value={progress} />
-                </CardHeader>
-            </Card>
-            <div className="flex flex-col">
-                <Button
-                    className="p-8"
-                    variant={"ghost"}
-                    onClick={handleBrewButtonEvent}
-                >
-                    {getIcon(timerState)}
-                </Button>
-                <div className="flex flex-row gap-8">
-                    <Button
-                        className="p-8"
-                        variant={"ghost"}
-                        disabled={currentInfusion === 1}
-                        onClick={() => {
-                            setTimerState("stopped");
-                            setCurrentInfusion(currentInfusion - 1);
-                        }}
-                    >
-                        <span className="flex flex-col">
-                            <ArrowBigLeft size={48} />
-                            Previous
-                        </span>
-                    </Button>
-                    <Button
-                        className="p-8"
-                        variant={"ghost"}
-                        disabled={
-                            currentInfusion === tea.infusions.length
-                        }
-                        onClick={() => {
-                            setTimerState("stopped");
-                            setCurrentInfusion(currentInfusion + 1);
-                        }}
-                    >
-                        <span className="flex flex-col">
-                            <ArrowBigRight size={48} />
-                            Next
-                        </span>
-                    </Button>
+        <div className="flex flex-col justify-between items-center gap-24">
+            <div className="flex flex-col justify-center items-center gap-8 mt-12">
+                <div className="flex flex-col gap-2">
+                    <h1>{tea.name}</h1>
+                    <h2>{`Infusion: ${currentInfusion}`}</h2>
                 </div>
+                <Card>
+                    <CardHeader className="flex flex-col items-center w-32">
+                        <h1 className="text-5xl">{currentTime}</h1>
+                        <Progress value={progress} />
+                    </CardHeader>
+                </Card>
+                <div className="flex flex-col">
+                    <Button
+                        className="p-8"
+                        variant={"ghost"}
+                        onClick={handleBrewButtonEvent}
+                    >
+                        {getIcon(timerState)}
+                    </Button>
+                    <div className="flex flex-row gap-8">
+                        <Button
+                            className="p-8"
+                            variant={"ghost"}
+                            disabled={currentInfusion === 1}
+                            onClick={() => {
+                                setTimerState("stopped");
+                                setCurrentInfusion(currentInfusion - 1);
+                            }}
+                        >
+                            <span className="flex flex-col">
+                                <ArrowBigLeft size={48} />
+                                Previous
+                            </span>
+                        </Button>
+                        <Button
+                            className="p-8"
+                            variant={"ghost"}
+                            disabled={
+                                currentInfusion === tea.infusions.length
+                            }
+                            onClick={() => {
+                                setTimerState("stopped");
+                                setCurrentInfusion(currentInfusion + 1);
+                            }}
+                        >
+                            <span className="flex flex-col">
+                                <ArrowBigRight size={48} />
+                                Next
+                            </span>
+                        </Button>
+                    </div>
+                </div>
+            </div>
+            <div className="flex flex-col w-full p-4 md:p-0 md:w-1/5">
+                <TeaInfo />
             </div>
         </div>
     );
