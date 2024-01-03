@@ -7,6 +7,7 @@ import { teas } from "@/lib/constants";
 import { Progress } from "../ui/progress";
 import { useTeaStore } from "@/lib/stores/TeaStore";
 import { TeaInfo } from "../molecules/TeaInfo";
+import audio from "@/assets/yay.mp3";
 
 const getIcon = (timerState: TimerState) => {
     switch (timerState) {
@@ -31,6 +32,7 @@ export const MainContent = () => {
     );
     const timerIdRef = useRef<NodeJS.Timeout | null>(null);
     const fractionRef = useRef(100 / currentTime);
+    const audioRef = useRef(new Audio(audio));
 
     const handleBrewButtonEvent = () => {
         if (timerState === "stopped") {
@@ -71,6 +73,7 @@ export const MainContent = () => {
     useEffect(() => {
         if (currentTime === 0) {
             console.log("play the fucking sound");
+            audioRef.current.play();
             toast.success(`INFUSION ${currentInfusion} DONE, ENJOYY`, getAlertContent());
             timerIdRef.current && clearInterval(timerIdRef.current);
             setTimerState("stopped");
@@ -87,12 +90,6 @@ export const MainContent = () => {
     const getAlertContent = () => {
         return {
             description: `Done since ${new Date().toLocaleTimeString()}`,
-            action: {
-                label: "X",
-                onClick: () => {
-                    console.log("clicked");
-                },
-            },
             duration: 600000,
         };
     };
