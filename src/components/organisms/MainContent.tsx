@@ -8,6 +8,7 @@ import { Progress } from "../ui/progress";
 import { useTeaStore } from "@/lib/stores/TeaStore";
 import { TeaInfo } from "../molecules/TeaInfo";
 import audio from "@/assets/yay.mp3";
+import { useTranslation } from 'react-i18next';
 
 const getIcon = (timerState: TimerState) => {
     switch (timerState) {
@@ -23,6 +24,7 @@ type TimerState = "running" | "stopped";
 const SECOND = 1000;
 
 export const MainContent = () => {
+    const { t } = useTranslation();
     const tea = useTeaStore((state) => state.tea);
     const [timerState, setTimerState] = useState<TimerState>("stopped");
     const [progress, setProgress] = useState(0);
@@ -98,12 +100,14 @@ export const MainContent = () => {
         };
     };
 
+    console.log('ye',tea.name);
+
     return (
         <div className="flex flex-col justify-between items-center gap-24">
             <div className="flex flex-col justify-center items-center gap-8 mt-12">
                 <div className="flex flex-col gap-2">
-                    <h1>{tea.name}</h1>
-                    <h2>{`Infusion: ${currentInfusion}`}</h2>
+                    <h1>{t(tea.name)}</h1>
+                    <h2>{`Infusion: ${currentInfusion}/${tea.infusions.length}`}</h2>
                 </div>
                 <Card>
                     <CardHeader className="flex flex-col items-center w-32">
@@ -111,7 +115,7 @@ export const MainContent = () => {
                         <Progress value={progress} />
                     </CardHeader>
                 </Card>
-                <div className="flex flex-col">
+                <div className="flex flex-col gap-4">
                     <Button
                         className="p-8 h-64 rounded-full border border-white"
                         variant={"ghost"}
@@ -131,7 +135,7 @@ export const MainContent = () => {
                         >
                             <span className="flex flex-col">
                                 <ArrowBigLeft size={48} />
-                                Previous
+                                {t('general.previous')}
                             </span>
                         </Button>
                         <Button
@@ -147,7 +151,7 @@ export const MainContent = () => {
                         >
                             <span className="flex flex-col">
                                 <ArrowBigRight size={48} />
-                                Next
+                                {t('general.next')}
                             </span>
                         </Button>
                     </div>

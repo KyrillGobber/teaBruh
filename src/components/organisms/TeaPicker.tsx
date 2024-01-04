@@ -19,24 +19,27 @@ import {
 } from "../ui/table";
 import { teas } from "@/lib/constants";
 import { useTeaStore } from "@/lib/stores/TeaStore";
+import { useTranslation } from "react-i18next";
+import { TFunction } from "i18next";
 
 export function TeaPicker() {
+    const { t } = useTranslation();
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button>Pick a Tea, bruh</Button>
+                <Button>{t('teaPicker.pickATea')}</Button>
             </SheetTrigger>
             <SheetContent>
                 <SheetHeader>
-                    <SheetTitle>You ready for some good tea bruh?</SheetTitle>
+                    <SheetTitle>{t('teaPicker.ready')}</SheetTitle>
                     <SheetDescription>
-                        Pick from my predefined teas here.
+                        {t('teaPicker.pickHere')}
                     </SheetDescription>
                 </SheetHeader>
                 <TeaTable />
                 <SheetFooter>
                     <SheetDescription>
-                        Soon you'll be able to add your own teas here.
+                        {t('teaPicker.soon')}
                     </SheetDescription>
                 </SheetFooter>
             </SheetContent>
@@ -44,7 +47,7 @@ export function TeaPicker() {
     );
 }
 
-const getTeaRows = () => {
+const getTeaRows = (t: TFunction<"translation", undefined>) => {
     return teas.map((tea) => (
         <SheetClose
             key={tea.name}
@@ -53,7 +56,7 @@ const getTeaRows = () => {
             onClick={() => useTeaStore.getState().setTea(tea)}
         >
             <TableRow>
-                <TableCell className="w-auto">{tea.name}</TableCell>
+                <TableCell className="w-auto">{t(tea.name)}</TableCell>
                 <TableCell className="text-right">
                     {tea.infusions.length}
                 </TableCell>
@@ -63,15 +66,16 @@ const getTeaRows = () => {
 };
 
 const TeaTable = () => {
+    const { t } = useTranslation();
     return (
         <Table>
             <TableHeader>
                 <TableRow>
-                    <TableHead>Tea</TableHead>
-                    <TableHead className="text-right">Infusions</TableHead>
+                    <TableHead>{t('teaPicker.table.tea')}</TableHead>
+                    <TableHead className="text-right">{t('teaPicker.table.infusions')}</TableHead>
                 </TableRow>
             </TableHeader>
-            <TableBody>{getTeaRows()}</TableBody>
+            <TableBody>{getTeaRows(t)}</TableBody>
         </Table>
     );
 };

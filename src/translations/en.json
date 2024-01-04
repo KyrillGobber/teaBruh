@@ -1,0 +1,43 @@
+{
+    "general": {
+        "next": "Next",
+        "previous": "Previous"
+    },
+    "languages": {
+        "english": "English",
+        "german": "German"
+    },
+    "nav": {
+        "myApps": "My Apps"
+    },
+    "teaPicker": {
+        "pickATea": "Pick a Tea, bruh",
+        "ready": "You ready for some good tea bruh?",
+        "pickHere": "Pick from my predefined teas here.",
+        "soon": "Soon you'll be able to add your own teas here.",
+        "table": {
+            "tea": "Tea",
+            "infusions": "Infusions"
+        }
+    },
+    "teaInfo": {
+        "desc": "Tea description",
+        "specs": "Tea info",
+        "infusions": "Infusions",
+        "amountOfLeaves": "Amount of leaves:",
+        "temp": "Temperature:",
+        "seconds": "Seconds"
+    },
+    "footer": {
+        "text": "Tea timer app made with React and Shadcn, by Kyrill Gobber",
+        "source": "App Source"
+    },
+    "constants": {
+        "greenTeaJapanese": "Green Tea, japanese style",
+        "greenTeaJapaneseDesc": "Sencha, Gyokuro, etc. Max 70°C, first infusion longer to open the leaves. Depending on the tea, there can also be a longer fourth or even fifth infusion.",
+        "puErh": "Pu-erh <3",
+        "puErhDesc": "First infusion is a rinse / wash, not to be drunk. The first real infusion is the second one. The wash may be shorter or longer than 10 seconds, depending on the tea.",
+        "greenTeaWestern": "Green Tea, western style",
+        "blackTeaWestern": "Black Tea, western style"
+    }
+}

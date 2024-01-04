@@ -1,0 +1,43 @@
+{
+    "general": {
+        "next": "Weiter",
+        "previous": "Zurück"
+    },
+    "languages": {
+        "english": "Englisch",
+        "german": "Deutsch"
+    },
+    "nav": {
+        "myApps": "Meine Apps"
+    },
+    "teaPicker": {
+        "pickATea": "Wähl den Tee, Bruh",
+        "ready": "Bereit für einen guten Tee?",
+        "pickHere": "Wähl von meinen vordefinierten Tees aus hier.",
+        "soon": "Bald kannst du hier deine eigenen Tees hinzufügen.",
+        "table": {
+            "tea": "Tee",
+            "infusions": "Infusionen"
+        }
+    },
+    "teaInfo": {
+        "desc": "Tee Beschreibung",
+        "specs": "Tea Info",
+        "infusions": "Infusionen",
+        "amountOfLeaves": "Gewicht der Blätter:",
+        "temp": "Temperatur:",
+        "seconds": "Sekunden"
+    },
+    "footer": {
+        "text": "Tea timer app made with React and Shadcn, by Kyrill Gobber",
+        "source": "Homepage Source"
+    },
+    "constants": {
+        "greenTeaJapanese": "Grüntee, japanische Art",
+        "greenTeaJapaneseDesc": "Sencha, Gyokuro, etc. Max 70°C, die erste Infusion ist länger, da sich die Blätter öffnen müssen. Je nach Tee geht auch eine vierte oder fünfte Infusion.",
+        "puErh": "Pu-erh <3",
+        "puErhDesc": "Die erste Infusion ist zum spülen der Blätter, diese sollte man noch nicht trinken. Erst die zweite Infusion ist geniessbar. Die Spülung kann je nach Tee kürzer oder länger als 10 Sekunden gehen.",
+        "greenTeaWestern": "Grüntee, westliche Art",
+        "blackTeaWestern": "Schwarztee, westliche Art"
+    }
+}

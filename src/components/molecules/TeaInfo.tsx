@@ -2,29 +2,31 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "..
 import { useTeaStore } from "@/lib/stores/TeaStore";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { Tea } from "@/lib/constants";
+import { useTranslation } from "react-i18next";
 
 export const TeaInfo = () => {
     const tea = useTeaStore((state) => state.tea);
+    const { t } = useTranslation();
     return (
         <Accordion type="single" collapsible>
             {tea.desc && (
                 <AccordionItem value="item-1">
-                    <AccordionTrigger>Tea info and description</AccordionTrigger>
+                    <AccordionTrigger>{t('teaInfo.desc')}</AccordionTrigger>
                     <AccordionContent>
-                        {tea.desc}
+                        {t(tea.desc)}
                     </AccordionContent>
                 </AccordionItem>
             )}
             {(tea.weight || tea.temp) && (
                 <AccordionItem value="item-2">
-                    <AccordionTrigger>Tea specs</AccordionTrigger>
+                    <AccordionTrigger>{t('teaInfo.specs')}</AccordionTrigger>
                     <AccordionContent>
                         <TeaSpecs />
                     </AccordionContent>
                 </AccordionItem>
             )}
             <AccordionItem value="item-3">
-                <AccordionTrigger>Infusions</AccordionTrigger>
+                <AccordionTrigger>{t('teaInfo.infusions')}</AccordionTrigger>
                 <AccordionContent>
                     <TeaInfusionTable />
                 </AccordionContent>
@@ -36,12 +38,13 @@ export const TeaInfo = () => {
 
 const TeaSpecs = () => {
     const tea = useTeaStore((state) => state.tea);
+    const { t } = useTranslation();
     return (
         <Table>
             <TableBody>
                 {tea.weight && (
                     <TableRow>
-                        <TableCell className="w-auto">Amount of leaves:</TableCell>
+                        <TableCell className="w-auto">{t('teaInfo.amountOfLeaves')}</TableCell>
                         <TableCell className="text-right">
                             {`${tea.weight}g`}
                         </TableCell>
@@ -49,7 +52,7 @@ const TeaSpecs = () => {
                 )}
                 {tea.temp && (
                     <TableRow>
-                        <TableCell className="w-auto">Temperature:</TableCell>
+                        <TableCell className="w-auto">{t('teaInfo.temp')}</TableCell>
                         <TableCell className="text-right">
                             {`${tea.temp}°C`}
                         </TableCell>
@@ -73,12 +76,13 @@ const getTeaInfusionRows = (tea: Tea) => {
 
 const TeaInfusionTable = () => {
     const tea = useTeaStore((state) => state.tea);
+    const { t } = useTranslation();
     return (
         <Table>
             <TableHeader>
                 <TableRow>
                     <TableHead>Nr.</TableHead>
-                    <TableHead className="text-right">Seconds</TableHead>
+                    <TableHead className="text-right">{t('teaInfo.seconds')}</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
