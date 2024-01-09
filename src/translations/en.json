@@ -8,7 +8,10 @@
         "german": "German"
     },
     "nav": {
-        "myApps": "My Apps"
+        "myApps": "My Apps",
+        "myPlace": "My small place in the internet.",
+        "teaBruhDesc": "The GongFu tea timer app we teaheads needed.",
+        "miitDesc": "A free Doodle alternative. Your miitup planner."
     },
     "teaPicker": {
         "pickATea": "Pick a Tea, bruh",

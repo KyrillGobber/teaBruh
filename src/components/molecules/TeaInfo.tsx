@@ -8,7 +8,7 @@ export const TeaInfo = () => {
     const tea = useTeaStore((state) => state.tea);
     const { t } = useTranslation();
     return (
-        <Accordion type="single" collapsible>
+        <Accordion type="single" collapsible defaultValue="item-1">
             {tea.desc && (
                 <AccordionItem value="item-1">
                     <AccordionTrigger>{t('teaInfo.desc')}</AccordionTrigger>

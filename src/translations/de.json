@@ -8,7 +8,10 @@
         "german": "Deutsch"
     },
     "nav": {
-        "myApps": "Meine Apps"
+        "myApps": "Meine Apps",
+        "myPlace": "Mein kleiner Ort im Internet.",
+        "teaBruhDesc": "Der GongFu Tea Timer, den wir Teaheads verdient haben.",
+        "miitDesc": "Eine freie Doodle Alternative. Dein miitup Planner des Vertrauens."
     },
     "teaPicker": {
         "pickATea": "Wähl den Tee, Bruh",
