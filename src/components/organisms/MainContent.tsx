@@ -1,8 +1,8 @@
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Card, CardHeader } from "../ui/card";
-import { ArrowBigLeft, ArrowBigRight, Pause, Play } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ArrowBigLeft, ArrowBigRight, ArrowLeftFromLine, Pause, Play } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { teas } from "@/lib/constants";
 import { Progress } from "../ui/progress";
 import { useTeaStore } from "@/lib/stores/TeaStore";
@@ -10,11 +10,12 @@ import { TeaInfo } from "../molecules/TeaInfo";
 import audio from "@/assets/yay.mp3";
 import { useTranslation } from 'react-i18next';
 
-const getIcon = (timerState: TimerState) => {
+const getIcon = (timerState: TimerState, isLastInfusion: boolean) => {
     switch (timerState) {
         case "running":
             return <Pause size={128} />;
         case "stopped":
+            if (isLastInfusion) return <ArrowLeftFromLine size={128} />;
             return <Play size={128} />;
     }
 };
@@ -35,8 +36,14 @@ export const MainContent = () => {
     const timerIdRef = useRef<NodeJS.Timeout | null>(null);
     const fractionRef = useRef(100 / currentTime);
     const audioRef = useRef(new Audio(audio));
+    const [isLastInfusion, setIsLastInfusion] = useState(false);
 
     const handleBrewButtonEvent = () => {
+        if (isLastInfusion) {
+            setCurrentInfusion(1);
+            setIsLastInfusion(false);
+            return;
+        }
         if (timerState === "stopped") {
             if (currentTime === 0) {
                 setCurrentInfusion(currentInfusion + 1);
@@ -74,7 +81,6 @@ export const MainContent = () => {
     // Play sound when timer is done
     useEffect(() => {
         if (currentTime === 0) {
-            console.log("play the fucking sound");
             audioRef.current.play();
             toast.success(`INFUSION ${currentInfusion} DONE, ENJOYY`, getAlertContent());
             timerIdRef.current && clearInterval(timerIdRef.current);
@@ -100,7 +106,11 @@ export const MainContent = () => {
         };
     };
 
-    console.log('ye',tea.name);
+    useMemo(() => {
+        if (currentInfusion === tea.infusions.length && currentTime === 0) {
+            setIsLastInfusion(true);
+        };
+    }, [currentInfusion, tea.infusions.length, currentTime]);
 
     return (
         <div className="flex flex-col justify-between items-center gap-24">
@@ -121,7 +131,7 @@ export const MainContent = () => {
                         variant={"ghost"}
                         onClick={handleBrewButtonEvent}
                     >
-                        {getIcon(timerState)}
+                        {getIcon(timerState, isLastInfusion)}
                     </Button>
                     <div className="flex flex-row gap-8">
                         <Button
