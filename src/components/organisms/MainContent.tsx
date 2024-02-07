@@ -2,7 +2,7 @@ import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Card, CardHeader } from "../ui/card";
 import { ArrowBigLeft, ArrowBigRight, ArrowLeftFromLine, Pause, Play } from "lucide-react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { teas } from "@/lib/constants";
 import { Progress } from "../ui/progress";
 import { useTeaStore } from "@/lib/stores/TeaStore";
