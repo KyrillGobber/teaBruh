@@ -57,35 +57,40 @@ export const teas: Tea[] = [
 
             },
             {
+                id: 4,
+                duration: 35
+
+            },
+            {
                 id: 5,
                 duration: 40
             },
             {
-                id: 6,
+                id: 7,
                 duration: 45
             },
             {
-                id: 7,
+                id: 8,
                 duration: 50
             },
             {
-                id: 8,
+                id: 9,
                 duration: 55
             },
             {
-                id: 9,
+                id: 10,
                 duration: 60
             },
             {
-                id: 10,
+                id: 11,
                 duration: 70
             },
             {
-                id: 11,
+                id: 12,
                 duration: 80
             },
             {
-                id: 12,
+                id: 13,
                 duration: 90
             },
         ]
