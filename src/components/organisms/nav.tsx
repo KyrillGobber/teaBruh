@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "../atoms/LanguageSwitcher";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "../ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import { Github } from "lucide-react";
 
 export const Nav = () => {
     const { t } = useTranslation();
@@ -21,20 +22,36 @@ export const Nav = () => {
                                 <NavigationMenuContent>
                                     <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                                         <li className="row-span-3">
-                                            <NavigationMenuLink asChild>
-                                                <a
-                                                    className="flex h-full w-full select-none flex-col justify-start rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                                                    target="_blank"
-                                                    href="https://www.gobber.ch"
-                                                >
-                                                    <div className="mb-2 text-lg font-medium">
-                                                        Gobber.ch
-                                                    </div>
-                                                    <p className="text-sm leading-tight text-muted-foreground">
-                                                        {t("nav.myPlace")}
-                                                    </p>
-                                                </a>
-                                            </NavigationMenuLink>
+                                            <div className="flex flex-col gap-2 h-full">
+                                                <NavigationMenuLink asChild>
+                                                    <a
+                                                        className="flex h-3/4 w-full select-none flex-col justify-start rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                                                        target="_blank"
+                                                        href="https://www.gobber.ch"
+                                                    >
+                                                        <div className="mb-2 text-lg font-medium">
+                                                            Gobber.ch
+                                                        </div>
+                                                        <p className="text-sm leading-tight text-muted-foreground">
+                                                            {t("nav.myPlace")}
+                                                        </p>
+                                                    </a>
+                                                </NavigationMenuLink>
+                                                <NavigationMenuLink asChild>
+                                                    <a
+                                                        className="flex h-1/4 w-full select-none flex-col justify-start rounded-md bg-gradient-to-b from-muted/50 to-muted px-6 py-4 no-underline outline-none focus:shadow-md"
+                                                        target="_blank"
+                                                        href={
+                                                            "https://github.com/KyrillGobber"
+                                                        }
+                                                    >
+                                                        <span className="flex flex-row gap-2">
+                                                            <Github />
+                                                            <p>My Github</p>
+                                                        </span>
+                                                    </a>
+                                                </NavigationMenuLink>
+                                            </div>
                                         </li>
                                         <ListItem
                                             href="https://teabruh.gobber.ch"
@@ -57,7 +74,7 @@ export const Nav = () => {
                         </NavigationMenuList>
                     </NavigationMenu>
                     <div className="flex flex-row gap-2">
-                        <TeaPicker/>
+                        <TeaPicker />
                         <LanguageSwitcher />
                         <ModeToggle />
                     </div>

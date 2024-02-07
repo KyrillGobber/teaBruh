@@ -27,7 +27,7 @@ const FooterSrc = () => {
             href={'https://github.com/KyrillGobber/teaBruh'}
             rel="noopener noreferrer"
         >
-            Homepage Source
+            App Source
             <Code />
         </a>
     );
