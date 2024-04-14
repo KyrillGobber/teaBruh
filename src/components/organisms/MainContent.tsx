@@ -5,7 +5,6 @@ import {
     ArrowBigLeft,
     ArrowBigRight,
     ArrowLeftFromLine,
-    ArrowUp01,
     Pause,
     Play,
 } from 'lucide-react';
@@ -16,7 +15,7 @@ import { useTeaStore } from '@/lib/stores/TeaStore';
 import { TeaInfo } from '../molecules/TeaInfo';
 import audio from '@/assets/yay.mp3';
 import { useTranslation } from 'react-i18next';
-import useTimer from '@/lib/hooks/useTimer';
+import useInterval from '@/lib/hooks/useInterval';
 
 const getIcon = (timerState: TimerState, isLastInfusion: boolean) => {
     switch (timerState) {
@@ -33,7 +32,7 @@ type TimerState = 'running' | 'stopped';
 const SECOND = 1000;
 
 export const MainContent = () => {
-    const { startTimer, clearTimer } = useTimer();
+    const { startInterval, clearInterval } = useInterval();
     const { t } = useTranslation();
     const tea = useTeaStore((state) => state.tea);
     const [timerState, setTimerState] = useState<TimerState>('stopped');
@@ -42,7 +41,6 @@ export const MainContent = () => {
     const [currentTime, setCurrentTime] = useState(
         teas[0].infusions[0].duration
     );
-    const timerIdRef = useRef<NodeJS.Timeout | null>(null);
     const fractionRef = useRef(100 / currentTime);
     const audioRef = useRef(new Audio(audio));
     const [isLastInfusion, setIsLastInfusion] = useState(false);
@@ -60,22 +58,21 @@ export const MainContent = () => {
             setTimerState('running');
         } else {
             setTimerState('stopped');
-            timerIdRef.current && clearInterval(timerIdRef.current);
+            clearInterval();
         }
     };
 
     useEffect(() => {
         if (timerState === 'running') {
-            const timerId = setInterval(() => {
+            startInterval(() => {
                 setProgress((progress) => progress + fractionRef.current);
                 setCurrentTime((currentTime) => currentTime - 1);
-            }, SECOND);
-            timerIdRef.current = timerId;
+            }, SECOND)
         }
         if (timerState === 'stopped') {
-            timerIdRef.current && clearInterval(timerIdRef.current);
+            clearInterval();
         }
-    }, [timerState]);
+    }, [clearInterval, startInterval, timerState]);
 
     useEffect(() => {
         //If infusion changes, should reset everything and set the new values
@@ -94,7 +91,7 @@ export const MainContent = () => {
                 `INFUSION ${currentInfusion} DONE, ENJOYY`,
                 getAlertContent()
             );
-            timerIdRef.current && clearInterval(timerIdRef.current);
+            clearInterval();
             setTimerState('stopped');
         }
     }, [currentTime]);
@@ -157,25 +154,6 @@ export const MainContent = () => {
                             <span className="flex flex-col">
                                 <ArrowBigLeft size={48} />
                                 {t('general.previous')}
-                            </span>
-                        </Button>
-                        <Button
-                            className="p-8"
-                            onClick={() => {
-                                startTimer(() => {
-                                    setProgress(
-                                        (progress) =>
-                                            progress + fractionRef.current
-                                    );
-                                    setCurrentTime(
-                                        (currentTime) => currentTime - 1
-                                    );
-                                }, 1000);
-                            }}
-                        >
-                            <span className="flex flex-col">
-                                <ArrowUp01 size={48} />
-                                {t('general.next')}
                             </span>
                         </Button>
                         <Button
