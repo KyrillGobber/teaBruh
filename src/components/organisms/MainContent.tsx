@@ -32,7 +32,7 @@ type TimerState = 'running' | 'stopped';
 const SECOND = 1000;
 
 export const MainContent = () => {
-    const { startInterval, clearInterval } = useInterval();
+    const { startInterval, stopInterval } = useInterval();
     const { t } = useTranslation();
     const tea = useTeaStore((state) => state.tea);
     const [timerState, setTimerState] = useState<TimerState>('stopped');
@@ -58,21 +58,9 @@ export const MainContent = () => {
             setTimerState('running');
         } else {
             setTimerState('stopped');
-            clearInterval();
+            stopInterval();
         }
     };
-
-    useEffect(() => {
-        if (timerState === 'running') {
-            startInterval(() => {
-                setProgress((progress) => progress + fractionRef.current);
-                setCurrentTime((currentTime) => currentTime - 1);
-            }, SECOND)
-        }
-        if (timerState === 'stopped') {
-            clearInterval();
-        }
-    }, [clearInterval, startInterval, timerState]);
 
     useEffect(() => {
         //If infusion changes, should reset everything and set the new values
@@ -83,6 +71,18 @@ export const MainContent = () => {
         fractionRef.current = newFraction;
     }, [currentInfusion]);
 
+    useEffect(() => {
+        if (timerState === 'running') {
+            startInterval(() => {
+                setProgress((progress) => progress + fractionRef.current);
+                setCurrentTime((currentTime) => currentTime - 1);
+            }, SECOND)
+        }
+        if (timerState === 'stopped') {
+            stopInterval();
+        }
+    }, [timerState]);
+
     // Play sound when timer is done
     useEffect(() => {
         if (currentTime === 0) {
@@ -91,7 +91,6 @@ export const MainContent = () => {
                 `INFUSION ${currentInfusion} DONE, ENJOYY`,
                 getAlertContent()
             );
-            clearInterval();
             setTimerState('stopped');
         }
     }, [currentTime]);
