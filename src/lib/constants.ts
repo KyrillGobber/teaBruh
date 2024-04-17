@@ -13,6 +13,27 @@ export type Infusion = {
 
 export const teas: Tea[] = [
     {
+        name: 'testtea',
+        desc: 'just a test bruhv',
+        weight: 5,
+        temp: 70,
+        infusions: [
+            {
+                id: 1,
+                duration: 3
+            },
+            {
+                id: 2,
+                duration: 4
+            },
+            {
+                id: 3,
+                duration: 5
+            }
+
+        ]
+    },
+    {
         name: 'constants.greenTeaJapanese',
         desc: 'constants.greenTeaJapaneseDesc',
         weight: 5,
