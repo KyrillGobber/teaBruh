@@ -16,6 +16,7 @@ import { TeaInfo } from '../molecules/TeaInfo';
 import audio from '@/assets/yay.mp3';
 import { useTranslation } from 'react-i18next';
 import useInterval from '@/lib/hooks/useInterval';
+import { TimerState } from '@/lib/hooks/useTimer';
 
 const getIcon = (timerState: TimerState, isLastInfusion: boolean) => {
     switch (timerState) {
@@ -26,8 +27,6 @@ const getIcon = (timerState: TimerState, isLastInfusion: boolean) => {
             return <Play size={128} />;
     }
 };
-
-type TimerState = 'running' | 'stopped';
 
 const SECOND = 1000;
 
