@@ -17,7 +17,7 @@
     },
     "settings": {
         "title": "Settings",
-        "desc": "More settings to come :)",
+        "desc": "All settings are stored on your browser cookies locally. More settings to come :)",
         "saved": "Settings saved, enjoy your tea!"
     },
     "teaPicker": {

@@ -12,20 +12,33 @@ import { useTeaStore } from '@/lib/stores/TeaStore';
 import { TeaInfo } from '../molecules/TeaInfo';
 import { useTranslation } from 'react-i18next';
 import useTimer, { TimerState } from '@/lib/hooks/useTimer';
+import { useSettingsStore } from '@/lib/stores/useSettingsStore';
 
-const getIcon = (timerState: TimerState, isLastInfusion: boolean) => {
+const getIcon = (
+    timerState: TimerState,
+    isLastInfusion: boolean,
+    pretimerSeconds: number
+) => {
     switch (timerState) {
         case 'running':
             return <Pause size={128} />;
         case 'stopped':
             if (isLastInfusion) return <ArrowLeftFromLine size={128} />;
             return <Play size={128} />;
+        case 'pretimer':
+            return (
+                <div>
+                    <p>Pour your water...</p>
+                    <p className='text-3xl font-bold'>{pretimerSeconds}</p>
+                </div>
+            );
     }
 };
 
 export const MainContent = () => {
     const { t } = useTranslation();
     const tea = useTeaStore((state) => state.tea);
+    const { pretimer } = useSettingsStore((state) => state);
     const {
         start,
         stop,
@@ -36,7 +49,8 @@ export const MainContent = () => {
         currentTime,
         currentInfusion,
         isLastInfusion,
-    } = useTimer(tea);
+        pretimerSeconds,
+    } = useTimer(tea, pretimer);
 
     const handleBrewButtonEvent = () => {
         if (timerState === 'stopped') {
@@ -65,7 +79,7 @@ export const MainContent = () => {
                         variant={'ghost'}
                         onClick={handleBrewButtonEvent}
                     >
-                        {getIcon(timerState, isLastInfusion)}
+                        {getIcon(timerState, isLastInfusion, pretimerSeconds)}
                     </Button>
                     <div className="flex flex-row gap-8">
                         <Button

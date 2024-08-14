@@ -68,9 +68,15 @@ const Options = () => {
                     <PretimerOption form={form} />
                 </div>
                 <div className="flex gap-4">
-                    <Button className="w-full" type="submit">
+                    <SheetClose
+                        type="submit"
+                        className={cn(
+                            buttonVariants({ variant: 'default' }),
+                            'w-full'
+                        )}
+                    >
                         Save
-                    </Button>
+                    </SheetClose>
                     <SheetClose
                         className={cn(
                             buttonVariants({ variant: 'outline' }),

@@ -6,8 +6,8 @@ import { Tea } from '../constants';
 
 export type TimerState = 'running' | 'stopped' | 'pretimer';
 
-export default function useTimer(tea: Tea, pretimer: number) {
-    //const [pretimer, setPretimer] = useState(pretimer);
+export default function useTimer(tea: Tea, pretimerInit: number = 0) {
+    const [pretimerSeconds, setPretimerSeconds] = useState(pretimerInit);
     const { startInterval, stopInterval } = useInterval();
     const [timerState, setTimerState] = useState<TimerState>('stopped');
     const [progress, setProgress] = useState(0);
@@ -23,6 +23,9 @@ export default function useTimer(tea: Tea, pretimer: number) {
             duration: 600000,
         };
     };
+    useEffect(() => {
+        setPretimerSeconds(pretimerInit);
+    }, [pretimerInit]);
 
     useEffect(() => {
         if (timerState === 'running') {
@@ -33,6 +36,11 @@ export default function useTimer(tea: Tea, pretimer: number) {
         }
         if (timerState === 'stopped') {
             stopInterval();
+        }
+        if (timerState === 'pretimer') {
+            startInterval(() => {
+                setPretimerSeconds((pretimer) => pretimer - 1);
+            }, 1000);
         }
     }, [timerState]);
 
@@ -47,6 +55,14 @@ export default function useTimer(tea: Tea, pretimer: number) {
             setTimerState('stopped');
         }
     }, [currentTime]);
+
+    // Pretimer effect: Start normal timer when pretimer is done
+    useEffect(() => {
+        if (pretimerSeconds === 0) {
+            stopInterval();
+            setTimerState('running');
+        }
+    }, [pretimerSeconds]);
 
     useEffect(() => {
         setTimerState('stopped');
@@ -73,6 +89,7 @@ export default function useTimer(tea: Tea, pretimer: number) {
         setCurrentTime(newTime);
         const newFraction = 100 / newTime;
         fractionRef.current = newFraction;
+        setPretimerSeconds(pretimerInit);
     }, [currentInfusion]);
 
     const start = () => {
@@ -84,7 +101,11 @@ export default function useTimer(tea: Tea, pretimer: number) {
         if (currentTime === 0) {
             setCurrentInfusion(currentInfusion + 1);
         }
-        setTimerState('running');
+        if (pretimerSeconds > 0) {
+            setTimerState('pretimer');
+        } else {
+            setTimerState('running');
+        }
     };
 
     const stop = () => {
@@ -111,6 +132,6 @@ export default function useTimer(tea: Tea, pretimer: number) {
         currentInfusion,
         isLastInfusion,
         progress,
-        pretimer,
+        pretimerSeconds,
     };
 }
