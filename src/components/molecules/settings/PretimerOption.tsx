@@ -7,10 +7,8 @@ import {
     FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useSettingsStore } from '@/lib/stores/useSettingsStore';
 
 export const PretimerOption = ({ form }: { form: any }) => {
-    const { pretimer } = useSettingsStore((state) => state);
     const handleKeyDown = (e: any) => {
         const inputValue = (e.target as HTMLInputElement)?.value;
         const keyValue = e.key;
