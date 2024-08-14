@@ -1,7 +1,9 @@
 {
     "general": {
         "next": "Next",
-        "previous": "Previous"
+        "previous": "Previous",
+        "save": "Save",
+        "close": "Close"
     },
     "languages": {
         "english": "English",
@@ -12,6 +14,11 @@
         "myPlace": "My small place in the internet.",
         "teaBruhDesc": "The GongFu tea timer app we teaheads needed.",
         "miitDesc": "A free Doodle alternative. Your miitup planner."
+    },
+    "settings": {
+        "title": "Settings",
+        "desc": "All settings are stored on your browser cookies locally. More settings to come :)",
+        "saved": "Settings saved, enjoy your tea!"
     },
     "teaPicker": {
         "pickATea": "Pick a Tea, bruh",

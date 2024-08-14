@@ -1,116 +1,64 @@
-import { toast } from "sonner";
-import { Button } from "../ui/button";
-import { Card, CardHeader } from "../ui/card";
-import { ArrowBigLeft, ArrowBigRight, ArrowLeftFromLine, Pause, Play } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { teas } from "@/lib/constants";
-import { Progress } from "../ui/progress";
-import { useTeaStore } from "@/lib/stores/TeaStore";
-import { TeaInfo } from "../molecules/TeaInfo";
-import audio from "@/assets/yay.mp3";
+import { Button } from '../ui/button';
+import { Card, CardHeader } from '../ui/card';
+import {
+    ArrowBigLeft,
+    ArrowBigRight,
+    ArrowLeftFromLine,
+    Pause,
+    Play,
+} from 'lucide-react';
+import { Progress } from '../ui/progress';
+import { useTeaStore } from '@/lib/stores/TeaStore';
+import { TeaInfo } from '../molecules/TeaInfo';
 import { useTranslation } from 'react-i18next';
+import useTimer, { TimerState } from '@/lib/hooks/useTimer';
+import { useSettingsStore } from '@/lib/stores/useSettingsStore';
 
-const getIcon = (timerState: TimerState, isLastInfusion: boolean) => {
+const getIcon = (
+    timerState: TimerState,
+    isLastInfusion: boolean,
+    pretimerSeconds: number
+) => {
     switch (timerState) {
-        case "running":
+        case 'running':
             return <Pause size={128} />;
-        case "stopped":
+        case 'stopped':
             if (isLastInfusion) return <ArrowLeftFromLine size={128} />;
             return <Play size={128} />;
+        case 'pretimer':
+            return (
+                <div>
+                    <p>Pour your water...</p>
+                    <p className='text-3xl font-bold'>{pretimerSeconds}</p>
+                </div>
+            );
     }
 };
-
-type TimerState = "running" | "stopped";
-
-const SECOND = 1000;
 
 export const MainContent = () => {
     const { t } = useTranslation();
     const tea = useTeaStore((state) => state.tea);
-    const [timerState, setTimerState] = useState<TimerState>("stopped");
-    const [progress, setProgress] = useState(0);
-    const [currentInfusion, setCurrentInfusion] = useState(1);
-    const [currentTime, setCurrentTime] = useState(
-        teas[0].infusions[0].duration
-    );
-    const timerIdRef = useRef<NodeJS.Timeout | null>(null);
-    const fractionRef = useRef(100 / currentTime);
-    const audioRef = useRef(new Audio(audio));
-    const [isLastInfusion, setIsLastInfusion] = useState(false);
+    const { pretimer } = useSettingsStore((state) => state);
+    const {
+        start,
+        stop,
+        nextInfusion,
+        previousInfusion,
+        progress,
+        timerState,
+        currentTime,
+        currentInfusion,
+        isLastInfusion,
+        pretimerSeconds,
+    } = useTimer(tea, pretimer);
 
     const handleBrewButtonEvent = () => {
-        if (isLastInfusion) {
-            setCurrentInfusion(1);
-            setIsLastInfusion(false);
-            return;
-        }
-        if (timerState === "stopped") {
-            if (currentTime === 0) {
-                setCurrentInfusion(currentInfusion + 1);
-            }
-            setTimerState("running");
-        }
-        else {
-            setTimerState("stopped");
-            timerIdRef.current && clearInterval(timerIdRef.current);
+        if (timerState === 'stopped') {
+            start();
+        } else {
+            stop();
         }
     };
-
-    useEffect(() => {
-        if (timerState === "running") {
-            const timerId = setInterval(() => {
-                setProgress(progress => progress + fractionRef.current);
-                setCurrentTime(currentTime => currentTime - 1);
-            }, SECOND);
-            timerIdRef.current = timerId;
-        }
-        if (timerState === "stopped") {
-            timerIdRef.current && clearInterval(timerIdRef.current);
-        }
-    }, [timerState]);
-
-    useEffect(() => {
-        //If infusion changes, should reset everything and set the new values
-        setProgress(0);
-        const newTime = tea.infusions[currentInfusion - 1].duration;
-        setCurrentTime(newTime);
-        const newFraction = 100 / newTime;
-        fractionRef.current = newFraction;
-    }, [currentInfusion]);
-
-    // Play sound when timer is done
-    useEffect(() => {
-        if (currentTime === 0) {
-            audioRef.current.play();
-            toast.success(`INFUSION ${currentInfusion} DONE, ENJOYY`, getAlertContent());
-            timerIdRef.current && clearInterval(timerIdRef.current);
-            setTimerState("stopped");
-        }
-    }, [currentTime]);
-
-    useEffect(() => {
-        setTimerState('stopped');
-        const resetInfusion = 1;
-        const newTeaTime = tea.infusions[resetInfusion - 1].duration;
-        setCurrentTime(newTeaTime);
-        setCurrentInfusion(resetInfusion);
-        setProgress(0);
-        const newFraction = 100 / newTeaTime;
-        fractionRef.current = newFraction;
-    }, [tea]);
-
-    const getAlertContent = () => {
-        return {
-            description: `Done since ${new Date().toLocaleTimeString()}`,
-            duration: 600000,
-        };
-    };
-
-    useMemo(() => {
-        if (currentInfusion === tea.infusions.length && currentTime === 0) {
-            setIsLastInfusion(true);
-        };
-    }, [currentInfusion, tea.infusions.length, currentTime]);
 
     return (
         <div className="flex flex-col justify-between items-center gap-24">
@@ -128,20 +76,17 @@ export const MainContent = () => {
                 <div className="flex flex-col gap-4">
                     <Button
                         className="p-8 h-64 rounded-full border border-white"
-                        variant={"ghost"}
+                        variant={'ghost'}
                         onClick={handleBrewButtonEvent}
                     >
-                        {getIcon(timerState, isLastInfusion)}
+                        {getIcon(timerState, isLastInfusion, pretimerSeconds)}
                     </Button>
                     <div className="flex flex-row gap-8">
                         <Button
                             className="p-8"
-                            variant={"ghost"}
+                            variant={'ghost'}
                             disabled={currentInfusion === 1}
-                            onClick={() => {
-                                setTimerState("stopped");
-                                setCurrentInfusion(currentInfusion - 1);
-                            }}
+                            onClick={previousInfusion}
                         >
                             <span className="flex flex-col">
                                 <ArrowBigLeft size={48} />
@@ -150,14 +95,9 @@ export const MainContent = () => {
                         </Button>
                         <Button
                             className="p-8"
-                            variant={"ghost"}
-                            disabled={
-                                currentInfusion === tea.infusions.length
-                            }
-                            onClick={() => {
-                                setTimerState("stopped");
-                                setCurrentInfusion(currentInfusion + 1);
-                            }}
+                            variant={'ghost'}
+                            disabled={currentInfusion === tea.infusions.length}
+                            onClick={nextInfusion}
                         >
                             <span className="flex flex-col">
                                 <ArrowBigRight size={48} />

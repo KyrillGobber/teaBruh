@@ -1,4 +1,3 @@
-import "./App.css";
 import { Toaster } from "sonner";
 import { cn } from "./lib/utils";
 import { Nav } from "./components/organisms/nav";
