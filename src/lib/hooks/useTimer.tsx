@@ -4,9 +4,10 @@ import audio from '@/assets/yay.mp3';
 import { toast } from 'sonner';
 import { Tea } from '../constants';
 
-export type TimerState = 'running' | 'stopped';
+export type TimerState = 'running' | 'stopped' | 'pretimer';
 
-export default function useTimer(tea: Tea) {
+export default function useTimer(tea: Tea, pretimer: number) {
+    //const [pretimer, setPretimer] = useState(pretimer);
     const { startInterval, stopInterval } = useInterval();
     const [timerState, setTimerState] = useState<TimerState>('stopped');
     const [progress, setProgress] = useState(0);
@@ -110,5 +111,6 @@ export default function useTimer(tea: Tea) {
         currentInfusion,
         isLastInfusion,
         progress,
+        pretimer,
     };
 }

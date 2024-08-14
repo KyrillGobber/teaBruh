@@ -1,7 +1,9 @@
 {
     "general": {
         "next": "Weiter",
-        "previous": "Zurück"
+        "previous": "Zurück",
+        "save": "Speichern",
+        "close": "Schließen"
     },
     "languages": {
         "english": "Englisch",
@@ -12,6 +14,11 @@
         "myPlace": "Mein kleiner Ort im Internet.",
         "teaBruhDesc": "Der GongFu Tea Timer, den wir Teaheads verdient haben.",
         "miitDesc": "Eine freie Doodle Alternative. Dein miitup Planner des Vertrauens."
+    },
+    "settings": {
+        "title": "Einstellungen",
+        "desc": "Bald gibt es hier eine grössere Auswahl...",
+        "saved": "Einstellungen gespeichert, T'cheers!"
     },
     "teaPicker": {
         "pickATea": "Wähl den Tee, Bruh",

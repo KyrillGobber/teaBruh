@@ -6,6 +6,7 @@ import { LanguageSwitcher } from "../atoms/LanguageSwitcher";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "../ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { Github } from "lucide-react";
+import { SettingsDrawer } from "./SettingsDrawer";
 
 export const Nav = () => {
     const { t } = useTranslation();
@@ -74,6 +75,7 @@ export const Nav = () => {
                         </NavigationMenuList>
                     </NavigationMenu>
                     <div className="flex flex-row gap-2">
+                        <SettingsDrawer />
                         <TeaPicker />
                         <LanguageSwitcher />
                         <ModeToggle />
