@@ -13,8 +13,7 @@ export const Footer = () => {
 const FooterText = () => {
     return (
         <p className="text-sm md:text-base">
-            Tea timer app made with React and Shadcn,
-            by Kyrill Gobber
+            Sincerly, your friendly neighbourhood tea enjoyer.
         </p>
     );
 };
@@ -27,7 +26,7 @@ const FooterSrc = () => {
             href={'https://github.com/KyrillGobber/teaBruh'}
             rel="noopener noreferrer"
         >
-            App Source
+            Source
             <Code />
         </a>
     );
