@@ -4,12 +4,12 @@ export type Tea = {
     desc?: string;
     weight?: number;
     temp?: number;
-}
+};
 
 export type Infusion = {
     id: number;
     duration: number;
-}
+};
 
 export const teas: Tea[] = [
     {
@@ -20,18 +20,17 @@ export const teas: Tea[] = [
         infusions: [
             {
                 id: 1,
-                duration: 60
+                duration: 60,
             },
             {
                 id: 2,
-                duration: 25
+                duration: 25,
             },
             {
                 id: 3,
-                duration: 35
-            }
-
-        ]
+                duration: 35,
+            },
+        ],
     },
     {
         name: 'constants.puErh',
@@ -41,59 +40,65 @@ export const teas: Tea[] = [
         infusions: [
             {
                 id: 1,
-                duration: 10
+                duration: 2,
             },
             {
                 id: 2,
-                duration: 20
+                duration: 10,
             },
             {
                 id: 3,
-                duration: 25
+                duration: 15,
             },
             {
                 id: 4,
-                duration: 30
-
-            },
-            {
-                id: 4,
-                duration: 35
-
+                duration: 20,
             },
             {
                 id: 5,
-                duration: 40
+                duration: 25,
+            },
+            {
+                id: 6,
+                duration: 30,
             },
             {
                 id: 7,
-                duration: 45
+                duration: 35,
             },
             {
                 id: 8,
-                duration: 50
+                duration: 40,
             },
             {
                 id: 9,
-                duration: 55
+                duration: 45,
             },
             {
                 id: 10,
-                duration: 60
+                duration: 50,
             },
             {
                 id: 11,
-                duration: 70
+                duration: 55,
             },
             {
                 id: 12,
-                duration: 80
+                duration: 60,
             },
             {
                 id: 13,
-                duration: 90
+                duration: 70,
             },
-        ]
+            {
+                id: 14,
+                duration: 80,
+            },
+            {
+                id: 15,
+                duration: 90,
+            },
+        ],
     },
     {
         name: 'constants.greenTeaWestern',
@@ -102,9 +107,9 @@ export const teas: Tea[] = [
         infusions: [
             {
                 id: 1,
-                duration: 120
+                duration: 120,
             },
-        ]
+        ],
     },
     {
         name: 'constants.blackTeaWestern',
@@ -113,8 +118,8 @@ export const teas: Tea[] = [
         infusions: [
             {
                 id: 1,
-                duration: 90
+                duration: 90,
             },
-        ]
+        ],
     },
-]
+];

@@ -61,6 +61,7 @@ export default function useTimer(tea: Tea, pretimerInit: number = 0) {
         if (pretimerSeconds === 0) {
             stopInterval();
             setTimerState('running');
+            setPretimerSeconds(pretimerInit);
         }
     }, [pretimerSeconds]);
 
@@ -89,7 +90,6 @@ export default function useTimer(tea: Tea, pretimerInit: number = 0) {
         setCurrentTime(newTime);
         const newFraction = 100 / newTime;
         fractionRef.current = newFraction;
-        setPretimerSeconds(pretimerInit);
     }, [currentInfusion]);
 
     const start = () => {
