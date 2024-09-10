@@ -21,12 +21,12 @@ export default defineConfig({
                 theme_color: '#ffffff',
                 icons: [
                     {
-                        src: 'public/coffee.svg',
+                        src: '/coffee.svg',
                         sizes: '192x192',
                         type: 'image/svg+xml',
                     },
                     {
-                        src: 'public/coffee.svg',
+                        src: '/coffee.svg',
                         sizes: '512x512',
                         type: 'image/svg+xml',
                     },
