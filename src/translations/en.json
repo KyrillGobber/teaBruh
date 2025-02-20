@@ -27,6 +27,7 @@
         "ready": "You ready for some good tea bruh?",
         "pickHere": "Pick from my predefined teas here.",
         "add": "Add your own tea",
+        "saved": "Your tea has been saved, enjoy.",
         "table": {
             "tea": "Tea",
             "infusions": "Infusions"

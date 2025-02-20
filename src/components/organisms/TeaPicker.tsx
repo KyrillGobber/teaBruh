@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button'
 import {
     Sheet,
     SheetClose,
@@ -8,7 +8,7 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-} from '@/components/ui/sheet';
+} from '@/components/ui/sheet'
 import {
     Table,
     TableBody,
@@ -16,15 +16,16 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from '../ui/table';
-import { Tea } from '@/lib/constants';
-import { useTeaStore } from '@/lib/stores/TeaStore';
-import { t } from 'i18next';
-import { AddCustomTeaDialog } from '../molecules/AddCustomTeaDialog';
-import { useState } from 'react';
+} from '../ui/table'
+import { Tea } from '@/lib/constants'
+import { useTeaStore } from '@/lib/stores/TeaStore'
+import { t } from 'i18next'
+import { AddCustomTeaDialog } from '../molecules/AddCustomTeaDialog'
+import { useState } from 'react'
+import { Trash2 } from 'lucide-react'
 
 export function TeaPicker() {
-    const [openCustomTeaDialog, setOpenCustomTeaDialog] = useState(false);
+    const [openCustomTeaDialog, setOpenCustomTeaDialog] = useState(false)
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -54,7 +55,7 @@ export function TeaPicker() {
                 onOpenChange={setOpenCustomTeaDialog}
             />
         </Sheet>
-    );
+    )
 }
 
 const getTeaRows = (allTeas: Tea[]) => {
@@ -66,17 +67,20 @@ const getTeaRows = (allTeas: Tea[]) => {
             onClick={() => useTeaStore.getState().setTea(tea)}
         >
             <TableRow>
-                <TableCell className="w-auto">{t(tea.name)}</TableCell>
+                <TableCell className="w-auto flex gap-2 items-center">
+                    {tea.custom && <Trash2 size={14} onClick={() => console.log('remove tea')}/>}
+                    {t(tea.name)}
+                </TableCell>
                 <TableCell className="text-right">
-                    {tea.infusions.length}
+                    {tea.custom ? 'custom' : tea.infusions.length}
                 </TableCell>
             </TableRow>
         </SheetClose>
-    ));
-};
+    ))
+}
 
 const TeaTable = () => {
-    const { allTeas } = useTeaStore();
+    const { allTeas } = useTeaStore()
     return (
         <Table>
             <TableHeader>
@@ -89,5 +93,5 @@ const TeaTable = () => {
             </TableHeader>
             <TableBody>{getTeaRows(allTeas)}</TableBody>
         </Table>
-    );
-};
+    )
+}
