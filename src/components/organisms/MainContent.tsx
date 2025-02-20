@@ -10,9 +10,9 @@ import {
 import { Progress } from '../ui/progress';
 import { useTeaStore } from '@/lib/stores/TeaStore';
 import { TeaInfo } from '../molecules/TeaInfo';
-import { useTranslation } from 'react-i18next';
 import useTimer, { TimerState } from '@/lib/hooks/useTimer';
 import { useSettingsStore } from '@/lib/stores/useSettingsStore';
+import { t } from 'i18next';
 
 const getIcon = (
     timerState: TimerState,
@@ -36,7 +36,6 @@ const getIcon = (
 };
 
 export const MainContent = () => {
-    const { t } = useTranslation();
     const tea = useTeaStore((state) => state.tea);
     const { pretimer } = useSettingsStore((state) => state);
     const {

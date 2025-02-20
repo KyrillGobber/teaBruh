@@ -3,7 +3,9 @@
         "next": "Next",
         "previous": "Previous",
         "save": "Save",
-        "close": "Close"
+        "close": "Close",
+        "cookieMessage": "Our cookies are low-carb, so you don't have to worry about them :)",
+        "thanks": "Thanks"
     },
     "languages": {
         "english": "English",
@@ -24,7 +26,7 @@
         "pickATea": "Pick a Tea, bruh",
         "ready": "You ready for some good tea bruh?",
         "pickHere": "Pick from my predefined teas here.",
-        "soon": "Soon you'll be able to add your own teas here.",
+        "add": "Add your own tea",
         "table": {
             "tea": "Tea",
             "infusions": "Infusions"

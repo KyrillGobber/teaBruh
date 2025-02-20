@@ -1,4 +1,4 @@
-import { Code } from "lucide-react";
+import { Code } from 'lucide-react';
 
 export const Footer = () => {
     return (
@@ -9,10 +9,9 @@ export const Footer = () => {
     );
 };
 
-
 const FooterText = () => {
     return (
-        <p className="text-sm md:text-base">
+        <p className="text-sm">
             Sincerly, your friendly neighbourhood tea enjoyer.
         </p>
     );
@@ -21,12 +20,12 @@ const FooterText = () => {
 const FooterSrc = () => {
     return (
         <a
-            className="flex flex-row gap-2 text-sm md:text-base"
+            className="flex flex-row gap-2 text-sm"
             target="_blank"
-            href={'https://github.com/KyrillGobber/teaBruh'}
+            href={'https://www.kyrill.dev'}
             rel="noopener noreferrer"
         >
-            Source
+            Kyrill.dev
             <Code />
         </a>
     );
