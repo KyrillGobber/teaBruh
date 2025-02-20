@@ -7,7 +7,6 @@ import { t } from "i18next";
 
 export const TeaInfo = () => {
     const tea = useTeaStore((state) => state.tea);
-    if (tea.custom) return null;
     return (
         <Accordion type="single" collapsible defaultValue="item-1">
             {tea.desc && (

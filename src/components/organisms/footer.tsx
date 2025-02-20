@@ -2,7 +2,7 @@ import { Code } from 'lucide-react';
 
 export const Footer = () => {
     return (
-        <footer className="mt-auto mb-6 flex flex-col justify-center items-center bottom-0">
+        <footer className="mt-auto mb-1 flex flex-col justify-center items-center bottom-0">
             <FooterText />
             <FooterSrc />
         </footer>
@@ -25,7 +25,7 @@ const FooterSrc = () => {
             href={'https://www.kyrill.dev'}
             rel="noopener noreferrer"
         >
-            Kyrill.dev
+            <p>Kyrill.dev</p>
             <Code />
         </a>
     );

@@ -20,8 +20,11 @@ import {
 import { Tea } from '@/lib/constants';
 import { useTeaStore } from '@/lib/stores/TeaStore';
 import { t } from 'i18next';
+import { AddCustomTeaDialog } from '../molecules/AddCustomTeaDialog';
+import { useState } from 'react';
 
 export function TeaPicker() {
+    const [openCustomTeaDialog, setOpenCustomTeaDialog] = useState(false);
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -36,11 +39,20 @@ export function TeaPicker() {
                 </SheetHeader>
                 <TeaTable />
                 <SheetFooter>
-                    <SheetDescription className='mx-auto'>
-                        <Button variant="link">{t('teaPicker.add')}</Button>
+                    <SheetDescription className="mx-auto">
+                        <Button
+                            variant="link"
+                            onClick={() => setOpenCustomTeaDialog(true)}
+                        >
+                            {t('teaPicker.add')}
+                        </Button>
                     </SheetDescription>
                 </SheetFooter>
             </SheetContent>
+            <AddCustomTeaDialog
+                open={openCustomTeaDialog}
+                onOpenChange={setOpenCustomTeaDialog}
+            />
         </Sheet>
     );
 }

@@ -29,7 +29,7 @@ const getIcon = (
             return (
                 <div>
                     <p>Pour your water...</p>
-                    <p className='text-3xl font-bold'>{pretimerSeconds}</p>
+                    <p className="text-3xl font-bold">{pretimerSeconds}</p>
                 </div>
             );
     }
@@ -106,9 +106,11 @@ export const MainContent = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col w-full p-4 md:p-0 md:w-1/5">
-                <TeaInfo />
-            </div>
+            {!tea.custom && (
+                <div className="flex flex-col w-full p-4 md:p-0 md:w-1/5">
+                    <TeaInfo />
+                </div>
+            )}
         </div>
     );
 };

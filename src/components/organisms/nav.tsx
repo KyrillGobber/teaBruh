@@ -29,8 +29,8 @@ export const Nav = () => {
                         </NavigationMenuList>
                     </NavigationMenu>
                     <div className="flex flex-row gap-2">
-                        <SettingsDrawer />
                         <TeaPicker />
+                        <SettingsDrawer />
                     </div>
                 </div>
                 <Separator className="bg-secondary" />
