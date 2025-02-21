@@ -60,13 +60,7 @@ export function TeaPicker() {
 
 const getTeaRows = (allTeas: Tea[]) => {
     return allTeas.map((tea) => (
-        <SheetClose
-            key={tea.name}
-            asChild
-            className="cursor-pointer"
-            onClick={() => useTeaStore.getState().setTea(tea)}
-        >
-            <TableRow>
+        <>
             {tea.custom && (
                 <Trash2
                     size={14}
@@ -79,14 +73,22 @@ const getTeaRows = (allTeas: Tea[]) => {
                     }
                 />
             )}
-                <TableCell className="w-auto flex gap-2 items-center">
-                    {t(tea.name)}
-                </TableCell>
-                <TableCell className="text-right">
-                    {tea.custom ? 'custom' : tea.infusions.length}
-                </TableCell>
-            </TableRow>
-        </SheetClose>
+            <SheetClose
+                key={tea.name}
+                asChild
+                className="cursor-pointer"
+                onClick={() => useTeaStore.getState().setTea(tea)}
+            >
+                <TableRow>
+                    <TableCell className="w-auto flex gap-2 items-center">
+                        {t(tea.name)}
+                    </TableCell>
+                    <TableCell className="text-right">
+                        {tea.custom ? 'custom' : tea.infusions.length}
+                    </TableCell>
+                </TableRow>
+            </SheetClose>
+        </>
     ))
 }
 
