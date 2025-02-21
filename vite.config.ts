@@ -18,18 +18,18 @@ export default defineConfig({
                 name: 'Teabruh',
                 short_name: 'Teabruh',
                 description: 'Brew tea, bruh!',
-                theme_color: '#ffffff',
                 display: 'standalone',
+                theme_color: '#000000',
                 icons: [
                     {
-                        src: '/coffee.svg',
+                        src: '/tea.png',
                         sizes: '192x192',
-                        type: 'image/svg+xml',
+                        type: 'image/png',
                     },
                     {
-                        src: '/coffee.svg',
+                        src: '/tea.png',
                         sizes: '512x512',
-                        type: 'image/svg+xml',
+                        type: 'image/png',
                     },
                 ],
             },
