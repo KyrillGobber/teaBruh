@@ -68,6 +68,7 @@ const CustomTeaForm = ({ handleClose }: { handleClose: () => void }) => {
             {
                 name: data.teaName,
                 infusions: [{ id: 0, duration: data.startingTime }],
+                increment: data.increment,
                 custom: true,
             },
         ])

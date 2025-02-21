@@ -64,7 +64,7 @@ export const MainContent = () => {
             <div className="flex flex-col justify-center items-center gap-8 mt-12">
                 <div className="flex flex-col text-center gap-2">
                     <h1>{t(tea.name)}</h1>
-                    <h2>{`Infusion: ${currentInfusion}/${tea.infusions.length}`}</h2>
+                    <h2>{`Infusion: ${currentInfusion}`}{!tea.custom && `/${tea.infusions.length}`}</h2>
                 </div>
                 <Card>
                     <CardHeader className="flex flex-col items-center w-32">
@@ -95,7 +95,7 @@ export const MainContent = () => {
                         <Button
                             className="p-8"
                             variant={'ghost'}
-                            disabled={currentInfusion === tea.infusions.length}
+                            disabled={currentInfusion === tea.infusions.length && !tea.custom}
                             onClick={nextInfusion}
                         >
                             <span className="flex flex-col">

@@ -80,13 +80,20 @@ export default function useTimer(tea: Tea, pretimerInit: number = 0) {
         fractionRef.current = newFraction;
     }, [tea]);
 
+    const getNextInfusionTime = () => {
+        if (tea.custom) {
+            return tea.infusions[0].duration + (currentInfusion - 1)* tea.increment!
+        }
+        return tea.infusions[currentInfusion - 1].duration
+    }
+
     useEffect(() => {
-        if (currentInfusion === tea.infusions.length && currentTime === 0) {
+        if (currentInfusion === tea.infusions.length && currentTime === 0 && !tea.custom) {
             setIsLastInfusion(true);
         }
         //If infusion changes, should reset everything and set the new values
         setProgress(0);
-        const newTime = tea.infusions[currentInfusion - 1].duration;
+        const newTime = getNextInfusionTime();
         setCurrentTime(newTime);
         const newFraction = 100 / newTime;
         fractionRef.current = newFraction;
