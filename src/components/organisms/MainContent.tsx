@@ -62,7 +62,7 @@ export const MainContent = () => {
     return (
         <div className="flex flex-col justify-between items-center gap-24">
             <div className="flex flex-col justify-center items-center gap-8 mt-12">
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col text-center gap-2">
                     <h1>{t(tea.name)}</h1>
                     <h2>{`Infusion: ${currentInfusion}/${tea.infusions.length}`}</h2>
                 </div>

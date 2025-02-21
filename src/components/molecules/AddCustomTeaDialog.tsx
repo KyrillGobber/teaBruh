@@ -38,14 +38,14 @@ export const AddCustomTeaDialog = ({
                         The custom tea will be saved locally on your device
                         cache only
                     </DialogDescription>
-                    <CustomTeaForm />
+                    <CustomTeaForm handleClose={() => onOpenChange(false)} />
                 </DialogHeader>
             </DialogContent>
         </Dialog>
     )
 }
 
-const CustomTeaForm = () => {
+const CustomTeaForm = ({ handleClose }: { handleClose: () => void }) => {
     const { allTeas, setAllTeas } = useTeaStore()
     const FormSchema = z.object({
         teaName: z.string().min(3),
@@ -65,9 +65,14 @@ const CustomTeaForm = () => {
     function onSubmit(data: z.infer<typeof FormSchema>) {
         setAllTeas([
             ...allTeas,
-            { name: data.teaName, infusions: [], custom: true },
+            {
+                name: data.teaName,
+                infusions: [{ id: 0, duration: data.startingTime }],
+                custom: true,
+            },
         ])
         toast.success(t('teaPicker.saved'))
+        handleClose()
     }
 
     const handleKeyDown = (e: any) => {
