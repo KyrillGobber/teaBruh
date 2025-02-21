@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { persist } from 'zustand/middleware';
 
 interface SettingsState {
     pretimer: number
@@ -7,17 +7,15 @@ interface SettingsState {
 }
 
 export const useSettingsStore = create<SettingsState>()(
-    devtools(
-        persist(
-            (set) => ({
-                // Initial State
-                pretimer: 0,
-                //Methods
-                setPretimer: (pretimer: number) => set({ pretimer: pretimer}),
-            }),
-            {
-                name: 'settings-store',
-            }
-        )
+    persist(
+        (set) => ({
+            // Initial State
+            pretimer: 0,
+            //Methods
+            setPretimer: (pretimer: number) => set({ pretimer: pretimer }),
+        }),
+        {
+            name: 'settings-store',
+        }
     )
 );

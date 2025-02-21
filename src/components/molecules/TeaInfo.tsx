@@ -3,10 +3,10 @@ import { useTeaStore } from "@/lib/stores/TeaStore";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { Tea } from "@/lib/constants";
 import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 export const TeaInfo = () => {
     const tea = useTeaStore((state) => state.tea);
-    const { t } = useTranslation();
     return (
         <Accordion type="single" collapsible defaultValue="item-1">
             {tea.desc && (

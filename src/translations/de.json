@@ -3,7 +3,9 @@
         "next": "Weiter",
         "previous": "Zurück",
         "save": "Speichern",
-        "close": "Schließen"
+        "close": "Schließen",
+        "cookieMessage": "Unsere Cookies sind low-carb, damit du dir keine Sorgen machen musst :)",
+        "thanks": "Danke"
     },
     "languages": {
         "english": "Englisch",

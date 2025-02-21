@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
     Sheet,
     SheetClose,
@@ -8,7 +8,7 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-} from "@/components/ui/sheet";
+} from '@/components/ui/sheet'
 import {
     Table,
     TableBody,
@@ -16,14 +16,16 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "../ui/table";
-import { teas } from "@/lib/constants";
-import { useTeaStore } from "@/lib/stores/TeaStore";
-import { useTranslation } from "react-i18next";
-import { TFunction } from "i18next";
+} from '../ui/table'
+import { Tea } from '@/lib/constants'
+import { useTeaStore } from '@/lib/stores/TeaStore'
+import { t } from 'i18next'
+import { AddCustomTeaDialog } from '../molecules/AddCustomTeaDialog'
+import { useState } from 'react'
+import { Trash2 } from 'lucide-react'
 
 export function TeaPicker() {
-    const { t } = useTranslation();
+    const [openCustomTeaDialog, setOpenCustomTeaDialog] = useState(false)
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -38,44 +40,71 @@ export function TeaPicker() {
                 </SheetHeader>
                 <TeaTable />
                 <SheetFooter>
-                    <SheetDescription>
-                        {t('teaPicker.soon')}
+                    <SheetDescription className="mx-auto">
+                        <Button
+                            variant="link"
+                            onClick={() => setOpenCustomTeaDialog(true)}
+                        >
+                            {t('teaPicker.add')}
+                        </Button>
                     </SheetDescription>
                 </SheetFooter>
             </SheetContent>
+            <AddCustomTeaDialog
+                open={openCustomTeaDialog}
+                onOpenChange={setOpenCustomTeaDialog}
+            />
         </Sheet>
-    );
+    )
 }
 
-const getTeaRows = (t: TFunction<"translation", undefined>) => {
-    return teas.map((tea) => (
-        <SheetClose
-            key={tea.name}
-            asChild
-            className="cursor-pointer"
-            onClick={() => useTeaStore.getState().setTea(tea)}
-        >
-            <TableRow>
-                <TableCell className="w-auto">{t(tea.name)}</TableCell>
-                <TableCell className="text-right">
-                    {tea.infusions.length}
-                </TableCell>
-            </TableRow>
-        </SheetClose>
-    ));
-};
+const getTeaRows = (allTeas: Tea[]) => {
+    return allTeas.map((tea) => (
+        <>
+            {tea.custom && (
+                <Trash2
+                    size={14}
+                    onClick={() =>
+                        useTeaStore
+                            .getState()
+                            .setAllTeas([
+                                ...allTeas.filter((t) => t.name !== tea.name),
+                            ])
+                    }
+                />
+            )}
+            <SheetClose
+                key={tea.name}
+                asChild
+                className="cursor-pointer"
+                onClick={() => useTeaStore.getState().setTea(tea)}
+            >
+                <TableRow>
+                    <TableCell className="w-auto flex gap-2 items-center">
+                        {t(tea.name)}
+                    </TableCell>
+                    <TableCell className="text-right">
+                        {tea.custom ? 'custom' : tea.infusions.length}
+                    </TableCell>
+                </TableRow>
+            </SheetClose>
+        </>
+    ))
+}
 
 const TeaTable = () => {
-    const { t } = useTranslation();
+    const { allTeas } = useTeaStore()
     return (
         <Table>
             <TableHeader>
                 <TableRow>
                     <TableHead>{t('teaPicker.table.tea')}</TableHead>
-                    <TableHead className="text-right">{t('teaPicker.table.infusions')}</TableHead>
+                    <TableHead className="text-right">
+                        {t('teaPicker.table.infusions')}
+                    </TableHead>
                 </TableRow>
             </TableHeader>
-            <TableBody>{getTeaRows(t)}</TableBody>
+            <TableBody>{getTeaRows(allTeas)}</TableBody>
         </Table>
-    );
-};
+    )
+}

@@ -18,6 +18,7 @@ export default defineConfig({
                 name: 'Teabruh',
                 short_name: 'Teabruh',
                 description: 'Brew tea, bruh!',
+                display: 'standalone',
                 theme_color: '#000000',
                 icons: [
                     {

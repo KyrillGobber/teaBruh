@@ -10,9 +10,9 @@ import {
 import { Progress } from '../ui/progress';
 import { useTeaStore } from '@/lib/stores/TeaStore';
 import { TeaInfo } from '../molecules/TeaInfo';
-import { useTranslation } from 'react-i18next';
 import useTimer, { TimerState } from '@/lib/hooks/useTimer';
 import { useSettingsStore } from '@/lib/stores/useSettingsStore';
+import { t } from 'i18next';
 
 const getIcon = (
     timerState: TimerState,
@@ -29,14 +29,13 @@ const getIcon = (
             return (
                 <div>
                     <p>Pour your water...</p>
-                    <p className='text-3xl font-bold'>{pretimerSeconds}</p>
+                    <p className="text-3xl font-bold">{pretimerSeconds}</p>
                 </div>
             );
     }
 };
 
 export const MainContent = () => {
-    const { t } = useTranslation();
     const tea = useTeaStore((state) => state.tea);
     const { pretimer } = useSettingsStore((state) => state);
     const {
@@ -63,9 +62,9 @@ export const MainContent = () => {
     return (
         <div className="flex flex-col justify-between items-center gap-24">
             <div className="flex flex-col justify-center items-center gap-8 mt-12">
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col text-center gap-2">
                     <h1>{t(tea.name)}</h1>
-                    <h2>{`Infusion: ${currentInfusion}/${tea.infusions.length}`}</h2>
+                    <h2>{`Infusion: ${currentInfusion}`}{!tea.custom && `/${tea.infusions.length}`}</h2>
                 </div>
                 <Card>
                     <CardHeader className="flex flex-col items-center w-32">
@@ -96,7 +95,7 @@ export const MainContent = () => {
                         <Button
                             className="p-8"
                             variant={'ghost'}
-                            disabled={currentInfusion === tea.infusions.length}
+                            disabled={currentInfusion === tea.infusions.length && !tea.custom}
                             onClick={nextInfusion}
                         >
                             <span className="flex flex-col">
@@ -107,9 +106,11 @@ export const MainContent = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col w-full p-4 md:p-0 md:w-1/5">
-                <TeaInfo />
-            </div>
+            {!tea.custom && (
+                <div className="flex flex-col w-full p-4 md:p-0 md:w-1/5">
+                    <TeaInfo />
+                </div>
+            )}
         </div>
     );
 };

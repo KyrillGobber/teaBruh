@@ -12,19 +12,19 @@ import {
     SheetTitle,
     SheetTrigger,
 } from '../ui/sheet';
-import { useTranslation } from 'react-i18next';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useSettingsStore } from '@/lib/stores/useSettingsStore';
 import { cn } from '@/lib/utils';
+import { t } from 'i18next';
+import { SlidersHorizontal } from 'lucide-react';
 
 export const SettingsDrawer = () => {
-    const { t } = useTranslation();
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button>{t('settings.title')}</Button>
+                <Button><SlidersHorizontal /></Button>
             </SheetTrigger>
             <SheetContent>
                 <SheetHeader>
@@ -41,7 +41,6 @@ export const SettingsDrawer = () => {
 
 const Options = () => {
     const { pretimer, setPretimer } = useSettingsStore((state) => state);
-    const { t } = useTranslation();
     const FormSchema = z.object({
         pretimer: z.number().max(10),
     });

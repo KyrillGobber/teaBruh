@@ -4,6 +4,8 @@ export type Tea = {
     desc?: string;
     weight?: number;
     temp?: number;
+    increment?: number;
+    custom?: boolean;
 };
 
 export type Infusion = {
