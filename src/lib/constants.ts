@@ -35,6 +35,26 @@ export const teas: Tea[] = [
         ],
     },
     {
+        name: 'constants.gyokuro',
+        desc: 'constants.gyokuroDesc',
+        weight: 5,
+        temp: 60,
+        infusions: [
+            {
+                id: 1,
+                duration: 120,
+            },
+            {
+                id: 2,
+                duration: 25,
+            },
+            {
+                id: 3,
+                duration: 35,
+            },
+        ],
+    },
+    {
         name: 'constants.puErh',
         desc: 'constants.puErhDesc',
         weight: 5,

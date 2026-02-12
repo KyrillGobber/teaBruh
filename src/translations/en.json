@@ -46,8 +46,10 @@
         "source": "App Source"
     },
     "constants": {
-        "greenTeaJapanese": "Green Tea, japanese style",
-        "greenTeaJapaneseDesc": "Sencha, Gyokuro, etc. Max 70°C, first infusion longer to open the leaves. Depending on the tea, there can also be a longer fourth or even fifth infusion.",
+        "greenTeaJapanese": "Sencha",
+        "greenTeaJapaneseDesc": "Japanese style brewing: Sencha, Gyokuro, etc. Max 70°C, first infusion longer to open the leaves. Depending on the tea, there can also be a longer fourth or even fifth infusion.",
+        "gyokuro": "Gyokuro",
+        "gyokuroDesc": "Gyokuro, max 60°C, first infusion longer to open the leaves. Depending on the tea, there can also be a longer fourth or even fifth infusion.",
         "puErh": "Pu-erh <3",
         "puErhDesc": "First infusion is a rinse / wash, not to be drunk. The first real infusion is the second one. The wash may be shorter or longer than 10 seconds, depending on the tea.",
         "greenTeaWestern": "Green Tea, western style",
