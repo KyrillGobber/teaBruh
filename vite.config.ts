@@ -11,6 +11,7 @@ export default defineConfig({
         svgr(),
         VitePWA({
             registerType: 'autoUpdate',
+            includeAssets: ['tea-192.png', 'tea-512.png', 'coffee.svg'],
             devOptions: {
                 enabled: true,
             },
@@ -19,19 +20,29 @@ export default defineConfig({
                 short_name: 'Teabruh',
                 description: 'Brew tea, bruh!',
                 display: 'standalone',
+                background_color: '#000000',
                 theme_color: '#000000',
                 icons: [
                     {
-                        src: '/tea.png',
+                        src: '/tea-192.png',
                         sizes: '192x192',
                         type: 'image/png',
                     },
                     {
-                        src: '/tea.png',
+                        src: '/tea-512.png',
                         sizes: '512x512',
                         type: 'image/png',
                     },
+                    {
+                        src: '/tea-512.png',
+                        sizes: '512x512',
+                        type: 'image/png',
+                        purpose: 'maskable',
+                    },
                 ],
+            },
+            workbox: {
+                globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
             },
         }),
     ],
