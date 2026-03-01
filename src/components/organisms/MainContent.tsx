@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Button } from '../ui/button'
 import { Card, CardHeader } from '../ui/card'
 import {
@@ -12,6 +13,7 @@ import { useTeaStore } from '@/lib/stores/TeaStore'
 import { TeaInfo } from '../molecules/TeaInfo'
 import useTimer, { TimerState } from '@/lib/hooks/useTimer'
 import { useSettingsStore } from '@/lib/stores/useSettingsStore'
+import { useBackgroundNotification } from '@/lib/hooks/useBackgroundNotification'
 import { t } from 'i18next'
 
 const getIcon = (
@@ -50,6 +52,17 @@ export const MainContent = () => {
         isLastInfusion,
         pretimerSeconds,
     } = useTimer(tea, pretimer)
+
+    const { scheduleNotification, cancelNotification } = useBackgroundNotification()
+
+    useEffect(() => {
+        if (timerState === 'running') {
+            const endTime = Date.now() + currentTime * 1000
+            scheduleNotification(endTime, currentInfusion, t(tea.name))
+        } else {
+            cancelNotification()
+        }
+    }, [timerState])
 
     const handleBrewButtonEvent = () => {
         if (timerState === 'stopped') {

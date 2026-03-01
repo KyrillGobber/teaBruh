@@ -16,6 +16,9 @@ export default defineConfig({
             devOptions: {
                 enabled: true,
             },
+            workbox: {
+                importScripts: ['/sw-custom.js'],
+            },
             manifest: {
                 name: 'Teabruh',
                 short_name: 'Teabruh',
