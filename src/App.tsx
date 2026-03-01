@@ -3,6 +3,7 @@ import { cn } from "./lib/utils";
 import { Nav } from "./components/organisms/nav";
 import { MainContent } from "./components/organisms/MainContent";
 import { Footer } from "./components/organisms/footer";
+import { InstallBanner } from "./components/molecules/InstallBanner";
 import { useEffect } from "react";
 import { t } from "i18next";
 
@@ -30,6 +31,7 @@ function App() {
                 <Footer />
             </main>
             <Toaster />
+            <InstallBanner />
         </div>
     );
 }

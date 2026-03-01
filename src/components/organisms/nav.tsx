@@ -6,6 +6,7 @@ import {
     NavigationMenuList,
 } from '../ui/navigation-menu';
 import { SettingsDrawer } from './SettingsDrawer';
+import { InstallPWA } from '../molecules/InstallPWA';
 
 export const Nav = () => {
     return (
@@ -26,7 +27,8 @@ export const Nav = () => {
                             </NavigationMenuItem>
                         </NavigationMenuList>
                     </NavigationMenu>
-                    <div className="flex flex-row gap-2">
+                    <div className="flex flex-row gap-2 items-center">
+                        <InstallPWA />
                         <TeaPicker />
                         <SettingsDrawer />
                     </div>

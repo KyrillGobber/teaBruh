@@ -1,18 +1,18 @@
-import { Button } from '../ui/button';
-import { Card, CardHeader } from '../ui/card';
+import { Button } from '../ui/button'
+import { Card, CardHeader } from '../ui/card'
 import {
     ArrowBigLeft,
     ArrowBigRight,
     ArrowLeftFromLine,
     Pause,
     Play,
-} from 'lucide-react';
-import { Progress } from '../ui/progress';
-import { useTeaStore } from '@/lib/stores/TeaStore';
-import { TeaInfo } from '../molecules/TeaInfo';
-import useTimer, { TimerState } from '@/lib/hooks/useTimer';
-import { useSettingsStore } from '@/lib/stores/useSettingsStore';
-import { t } from 'i18next';
+} from 'lucide-react'
+import { Progress } from '../ui/progress'
+import { useTeaStore } from '@/lib/stores/TeaStore'
+import { TeaInfo } from '../molecules/TeaInfo'
+import useTimer, { TimerState } from '@/lib/hooks/useTimer'
+import { useSettingsStore } from '@/lib/stores/useSettingsStore'
+import { t } from 'i18next'
 
 const getIcon = (
     timerState: TimerState,
@@ -21,23 +21,23 @@ const getIcon = (
 ) => {
     switch (timerState) {
         case 'running':
-            return <Pause size={128} />;
+            return <Pause size={128} />
         case 'stopped':
-            if (isLastInfusion) return <ArrowLeftFromLine size={128} />;
-            return <Play size={128} />;
+            if (isLastInfusion) return <ArrowLeftFromLine size={128} />
+            return <Play size={128} />
         case 'pretimer':
             return (
                 <div>
                     <p>Pour your water...</p>
                     <p className="text-3xl font-bold">{pretimerSeconds}</p>
                 </div>
-            );
+            )
     }
-};
+}
 
 export const MainContent = () => {
-    const tea = useTeaStore((state) => state.tea);
-    const { pretimer } = useSettingsStore((state) => state);
+    const tea = useTeaStore((state) => state.tea)
+    const { pretimer } = useSettingsStore((state) => state)
     const {
         start,
         stop,
@@ -49,22 +49,25 @@ export const MainContent = () => {
         currentInfusion,
         isLastInfusion,
         pretimerSeconds,
-    } = useTimer(tea, pretimer);
+    } = useTimer(tea, pretimer)
 
     const handleBrewButtonEvent = () => {
         if (timerState === 'stopped') {
-            start();
+            start()
         } else {
-            stop();
+            stop()
         }
-    };
+    }
 
     return (
         <div className="flex flex-col justify-between items-center gap-24">
             <div className="flex flex-col justify-center items-center gap-8 mt-12">
                 <div className="flex flex-col text-center gap-2">
                     <h1>{t(tea.name)}</h1>
-                    <h2>{`Infusion: ${currentInfusion}`}{!tea.custom && `/${tea.infusions.length}`}</h2>
+                    <h2>
+                        {`Infusion: ${currentInfusion}`}
+                        {!tea.custom && `/${tea.infusions.length}`}
+                    </h2>
                 </div>
                 <Card>
                     <CardHeader className="flex flex-col items-center w-32">
@@ -95,7 +98,10 @@ export const MainContent = () => {
                         <Button
                             className="p-8"
                             variant={'ghost'}
-                            disabled={currentInfusion === tea.infusions.length && !tea.custom}
+                            disabled={
+                                currentInfusion === tea.infusions.length &&
+                                !tea.custom
+                            }
                             onClick={nextInfusion}
                         >
                             <span className="flex flex-col">
@@ -112,5 +118,5 @@ export const MainContent = () => {
                 </div>
             )}
         </div>
-    );
-};
+    )
+}
