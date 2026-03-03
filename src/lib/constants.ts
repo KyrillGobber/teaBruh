@@ -35,6 +35,26 @@ export const teas: Tea[] = [
         ],
     },
     {
+        name: 'constants.gyokuro',
+        desc: 'constants.gyokuroDesc',
+        weight: 5,
+        temp: 60,
+        infusions: [
+            {
+                id: 1,
+                duration: 120,
+            },
+            {
+                id: 2,
+                duration: 25,
+            },
+            {
+                id: 3,
+                duration: 35,
+            },
+        ],
+    },
+    {
         name: 'constants.puErh',
         desc: 'constants.puErhDesc',
         weight: 5,
@@ -42,62 +62,50 @@ export const teas: Tea[] = [
         infusions: [
             {
                 id: 1,
-                duration: 2,
-            },
-            {
-                id: 2,
-                duration: 10,
-            },
-            {
-                id: 3,
-                duration: 15,
-            },
-            {
-                id: 4,
                 duration: 20,
             },
             {
-                id: 5,
+                id: 2,
                 duration: 25,
             },
             {
-                id: 6,
+                id: 3,
                 duration: 30,
             },
             {
-                id: 7,
+                id: 4,
                 duration: 35,
             },
             {
-                id: 8,
+                id: 5,
                 duration: 40,
             },
             {
-                id: 9,
+                id: 6,
                 duration: 45,
             },
             {
-                id: 10,
+                id: 7,
                 duration: 50,
             },
             {
-                id: 11,
+                id: 8,
                 duration: 55,
             },
             {
-                id: 12,
+                id: 9,
                 duration: 60,
             },
             {
-                id: 13,
+                id: 10,
                 duration: 70,
             },
             {
-                id: 14,
+                id: 11,
                 duration: 80,
             },
             {
-                id: 15,
+                id: 12,
                 duration: 90,
             },
         ],

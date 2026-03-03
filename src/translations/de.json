@@ -44,9 +44,29 @@
         "text": "Tea timer app made with React and Shadcn, by Kyrill Gobber",
         "source": "Homepage Source"
     },
+    "install": {
+        "button": "App installieren",
+        "title": "Teabruh installieren",
+        "description": "Installiere Teabruh auf deinem Gerät für Offline-Nutzung und ein besseres Erlebnis"
+    },
+    "installBanner": {
+        "title": "Teabruh zum Home-Screen hinzufügen",
+        "message": "Installiere unsere App für das beste Erlebnis und Offline-Nutzung",
+        "iosMessage": "Tippe auf den Teilen-Button und dann \"Zum Home-Bildschirm hinzufügen\" für das beste Erlebnis",
+        "install": "Installieren",
+        "iosAction": "Verstanden!"
+    },
+    "offline": {
+        "title": "Du bist offline",
+        "message": "Keine Sorge! Du kannst Teabruh trotzdem nutzen, um deinen Tee aufzubrühen.",
+        "reload": "Seite neu laden",
+        "waiting": "Warte auf Verbindung..."
+    },
     "constants": {
-        "greenTeaJapanese": "Grüntee, japanische Art",
-        "greenTeaJapaneseDesc": "Sencha, Gyokuro, etc. Max 70°C, die erste Infusion ist länger, da sich die Blätter öffnen müssen. Je nach Tee geht auch eine vierte oder fünfte Infusion.",
+        "greenTeaJapanese": "Sencha",
+        "greenTeaJapaneseDesc": "Japanisch Style, Sencha, Gyokuro, etc. Max 70°C, die erste Infusion ist länger, da sich die Blätter öffnen müssen. Je nach Tee geht auch eine vierte oder fünfte Infusion.",
+        "gyokuro": "Gyokuro",
+        "gyokuroDesc": "Gyokuro, max 70°C, die erste Infusion ist länger, da sich die Blätter öffnen müssen. Je nach Tee geht auch eine vierte oder fünfte Infusion.",
         "puErh": "Pu-erh <3",
         "puErhDesc": "Die erste Infusion ist zum spülen der Blätter, diese sollte man noch nicht trinken. Erst die zweite Infusion ist geniessbar. Die Spülung kann je nach Tee kürzer oder länger als 10 Sekunden gehen.",
         "greenTeaWestern": "Grüntee, westliche Art",

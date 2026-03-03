@@ -15,7 +15,7 @@ export const useTeaStore = create<TeaState>()(
             // Initial State
             tea: teas[0],
             allTeas: teas,
-            //Methods
+            // Methods
             setTea: (newTea: Tea) => set({ tea: newTea }),
             setAllTeas: (newTeas: Tea[]) => set({ allTeas: newTeas }),
         }),
