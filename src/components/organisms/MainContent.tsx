@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { Button } from '../ui/button'
 import { Card, CardHeader } from '../ui/card'
 import {
@@ -14,6 +14,7 @@ import { TeaInfo } from '../molecules/TeaInfo'
 import useTimer, { TimerState } from '@/lib/hooks/useTimer'
 import { useSettingsStore } from '@/lib/stores/useSettingsStore'
 import { useBackgroundNotification } from '@/lib/hooks/useBackgroundNotification'
+import { NotificationAction } from '@/lib/hooks/useBackgroundNotification'
 import { t } from 'i18next'
 
 const getIcon = (
@@ -53,16 +54,60 @@ export const MainContent = () => {
         pretimerSeconds,
     } = useTimer(tea, pretimer)
 
-    const { scheduleNotification, cancelNotification } = useBackgroundNotification()
+    const {
+        scheduleNotification,
+        cancelNotification,
+        showRunningNotification,
+        showPausedNotification,
+        closeTimerNotification,
+        onNotificationAction,
+    } = useBackgroundNotification()
 
     useEffect(() => {
+        const teaName = t(tea.name)
+
         if (timerState === 'running') {
             const endTime = Date.now() + currentTime * 1000
-            scheduleNotification(endTime, currentInfusion, t(tea.name))
-        } else {
+            showRunningNotification(currentTime, currentInfusion, teaName)
+            scheduleNotification(endTime, currentInfusion, teaName)
+        } else if (timerState === 'stopped' && currentTime > 0) {
+            showPausedNotification(currentTime, currentInfusion, teaName)
             cancelNotification()
+        } else if (timerState === 'stopped' && currentTime === 0) {
+            closeTimerNotification()
+        } else if (timerState === 'pretimer') {
+            showRunningNotification(pretimerSeconds, currentInfusion, teaName, true)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timerState])
+
+    useEffect(() => {
+        if (timerState !== 'running') return
+        const teaName = t(tea.name)
+        showRunningNotification(currentTime, currentInfusion, teaName)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentTime])
+
+    const handleNotificationAction = useCallback(
+        (action: NotificationAction) => {
+            switch (action) {
+                case 'stop':
+                    stop()
+                    break
+                case 'start':
+                    start()
+                    break
+                case 'nextInfusion':
+                    start()
+                    break
+            }
+        },
+        [start, stop, nextInfusion]
+    )
+
+    useEffect(() => {
+        return onNotificationAction(handleNotificationAction)
+    }, [onNotificationAction, handleNotificationAction])
 
     const handleBrewButtonEvent = () => {
         if (timerState === 'stopped') {

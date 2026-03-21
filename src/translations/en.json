@@ -72,5 +72,15 @@
         "puErhDesc": "First infusion is a rinse / wash, not to be drunk. The first real infusion is the second one. The wash may be shorter or longer than 10 seconds, depending on the tea.",
         "greenTeaWestern": "Green Tea, western style",
         "blackTeaWestern": "Black Tea, western style"
+    },
+    "notification": {
+        "stop": "Stop",
+        "resume": "Resume",
+        "nextInfusion": "Next Infusion",
+        "brewing": "Brewing",
+        "paused": "Paused",
+        "ready": "ready!",
+        "doneBody": "Infusion {{infusion}} is done. Enjoy!",
+        "pourWater": "Pour your water..."
     }
 }

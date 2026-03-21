@@ -71,5 +71,15 @@
         "puErhDesc": "Die erste Infusion ist zum spülen der Blätter, diese sollte man noch nicht trinken. Erst die zweite Infusion ist geniessbar. Die Spülung kann je nach Tee kürzer oder länger als 10 Sekunden gehen.",
         "greenTeaWestern": "Grüntee, westliche Art",
         "blackTeaWestern": "Schwarztee, westliche Art"
+    },
+    "notification": {
+        "stop": "Stoppen",
+        "resume": "Fortsetzen",
+        "nextInfusion": "Nächste Infusion",
+        "brewing": "Am Aufbrühen",
+        "paused": "Pausiert",
+        "ready": "fertig!",
+        "doneBody": "Infusion {{infusion}} ist fertig. Geniess es!",
+        "pourWater": "Giesse das Wasser..."
     }
 }
