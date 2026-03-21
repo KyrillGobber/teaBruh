@@ -42,13 +42,12 @@ self.addEventListener('message', function (event) {
             ? 'Pour your water... ' + data.currentTime + 's'
             : data.teaName + ' - Infusion ' + data.infusionNumber + ': ' + formatTime(data.currentTime);
 
-        closeByTag('tea-timer-running');
         self.registration.showNotification(data.pretimer ? 'Get ready...' : 'Brewing', {
             body: body,
             icon: '/tea-192.png',
             badge: '/tea-144.png',
             tag: 'tea-timer-running',
-            renotify: true,
+            renotify: false,
             requireInteraction: true,
             actions: [
                 { action: 'stop', title: 'Stop' }
@@ -59,13 +58,12 @@ self.addEventListener('message', function (event) {
     if (data.type === 'SHOW_PAUSED_NOTIFICATION') {
         var body = data.teaName + ' - Infusion ' + data.infusionNumber + ': ' + formatTime(data.currentTime);
 
-        closeByTag('tea-timer-running');
         self.registration.showNotification('Paused', {
             body: body,
             icon: '/tea-192.png',
             badge: '/tea-144.png',
             tag: 'tea-timer-running',
-            renotify: true,
+            renotify: false,
             requireInteraction: true,
             actions: [
                 { action: 'start', title: 'Resume' }
