@@ -72,7 +72,7 @@ export function useBackgroundNotification() {
         await sendToSw({ type: 'CLOSE_TIMER_NOTIFICATION' });
     }, [sendToSw]);
 
-    const onNotificationAction = (callback: (action: NotificationAction) => void) => {
+    const onNotificationAction = useCallback((callback: (action: NotificationAction) => void) => {
         if (!('serviceWorker' in navigator)) return () => {};
 
         const handler = (event: MessageEvent) => {
@@ -91,7 +91,7 @@ export function useBackgroundNotification() {
 
         navigator.serviceWorker.addEventListener('message', handler);
         return () => navigator.serviceWorker.removeEventListener('message', handler);
-    };
+    }, []);
 
     return {
         scheduleNotification,

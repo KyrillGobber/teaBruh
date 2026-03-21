@@ -102,7 +102,7 @@ export const MainContent = () => {
                     break
             }
         },
-        [start, stop, nextInfusion]
+        [start, stop]
     )
 
     useEffect(() => {
