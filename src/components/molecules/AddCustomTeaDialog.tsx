@@ -20,6 +20,7 @@ import {
     FormMessage,
 } from '../ui/form'
 import { useForm } from 'react-hook-form'
+import type { KeyboardEvent } from 'react'
 import { useTeaStore } from '@/lib/stores/TeaStore'
 
 export const AddCustomTeaDialog = ({
@@ -76,8 +77,8 @@ const CustomTeaForm = ({ handleClose }: { handleClose: () => void }) => {
         handleClose()
     }
 
-    const handleKeyDown = (e: any) => {
-        const inputValue = (e.target as HTMLInputElement)?.value
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        const inputValue = e.currentTarget.value
         const keyValue = e.key
 
         if (keyValue === 'Backspace' || keyValue === 'Delete') {

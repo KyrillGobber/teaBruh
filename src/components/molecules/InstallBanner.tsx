@@ -22,7 +22,7 @@ export function InstallBanner() {
     }
     
     // Check if on iOS
-    const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+    const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent);
     setIsIOS(isIOSDevice);
     
     // Prevent showing if already installed

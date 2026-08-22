@@ -15,7 +15,7 @@ export function InstallPWA() {
   
   useEffect(() => {
     // Check if on iOS
-    const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+    const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent);
     setIsIOS(isIOSDevice);
     
     // Prevent showing install prompt if already installed

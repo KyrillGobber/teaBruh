@@ -7,10 +7,20 @@ import {
     FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import type { KeyboardEvent } from 'react';
+import type { UseFormReturn } from 'react-hook-form';
 
-export const PretimerOption = ({ form }: { form: any }) => {
-    const handleKeyDown = (e: any) => {
-        const inputValue = (e.target as HTMLInputElement)?.value;
+type PretimerFormValues = {
+    pretimer: number;
+};
+
+export const PretimerOption = ({
+    form,
+}: {
+    form: UseFormReturn<PretimerFormValues>;
+}) => {
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        const inputValue = e.currentTarget.value;
         const keyValue = e.key;
 
         if (keyValue === 'Backspace' || keyValue === 'Delete') {

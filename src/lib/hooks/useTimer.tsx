@@ -6,6 +6,11 @@ import { Tea } from '../constants';
 
 export type TimerState = 'running' | 'stopped' | 'pretimer';
 
+const getAlertContent = () => ({
+    description: `Done since ${new Date().toLocaleTimeString()}`,
+    duration: 600000,
+});
+
 export default function useTimer(tea: Tea, pretimerInit: number = 0) {
     const [pretimerSeconds, setPretimerSeconds] = useState(pretimerInit);
     const { startInterval, stopInterval } = useInterval();
@@ -13,16 +18,12 @@ export default function useTimer(tea: Tea, pretimerInit: number = 0) {
     const [progress, setProgress] = useState(0);
     const [currentTime, setCurrentTime] = useState(tea.infusions[0].duration);
     const [currentInfusion, setCurrentInfusion] = useState(1);
+    const currentInfusionRef = useRef(currentInfusion);
+    currentInfusionRef.current = currentInfusion;
     const [isLastInfusion, setIsLastInfusion] = useState(false);
     const fractionRef = useRef(100 / currentTime);
     const audioRef = useRef(new Audio(audio));
 
-    const getAlertContent = () => {
-        return {
-            description: `Done since ${new Date().toLocaleTimeString()}`,
-            duration: 600000,
-        };
-    };
     useEffect(() => {
         setPretimerSeconds(pretimerInit);
     }, [pretimerInit]);
@@ -42,14 +43,14 @@ export default function useTimer(tea: Tea, pretimerInit: number = 0) {
                 setPretimerSeconds((pretimer) => pretimer - 1);
             }, 1000);
         }
-    }, [timerState]);
+    }, [timerState, startInterval, stopInterval]);
 
     // Play sound when timer is done
     useEffect(() => {
         if (currentTime === 0) {
             audioRef.current.play();
             toast.success(
-                `INFUSION ${currentInfusion} DONE, ENJOYY`,
+                `INFUSION ${currentInfusionRef.current} DONE, ENJOYY`,
                 getAlertContent()
             );
             setTimerState('stopped');
@@ -63,7 +64,7 @@ export default function useTimer(tea: Tea, pretimerInit: number = 0) {
             setTimerState('running');
             setPretimerSeconds(pretimerInit);
         }
-    }, [pretimerSeconds]);
+    }, [pretimerSeconds, pretimerInit, stopInterval]);
 
     useEffect(() => {
         setTimerState('stopped');
@@ -80,23 +81,25 @@ export default function useTimer(tea: Tea, pretimerInit: number = 0) {
         fractionRef.current = newFraction;
     }, [tea]);
 
-    const getNextInfusionTime = () => {
-        if (tea.custom) {
-            return tea.infusions[0].duration + (currentInfusion - 1)* tea.increment!
-        }
-        return tea.infusions[currentInfusion - 1].duration
-    }
-
     useEffect(() => {
-        if (currentInfusion === tea.infusions.length && currentTime === 0 && !tea.custom) {
+        if (
+            currentInfusion === tea.infusions.length &&
+            currentTime === 0 &&
+            !tea.custom
+        ) {
             setIsLastInfusion(true);
         }
         //If infusion changes, should reset everything and set the new values
         setProgress(0);
-        const newTime = getNextInfusionTime();
+        const newTime = tea.custom
+            ? tea.infusions[0].duration +
+              (currentInfusion - 1) * tea.increment!
+            : tea.infusions[currentInfusion - 1].duration;
         setCurrentTime(newTime);
         const newFraction = 100 / newTime;
         fractionRef.current = newFraction;
+        // Timer ticks must not rerun this reset; tea changes reset in the effect above.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentInfusion]);
 
     const start = () => {
